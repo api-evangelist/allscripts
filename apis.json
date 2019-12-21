@@ -10,8 +10,8 @@
         "no api definition",
         "target"
     ],
-    "created": "2019-12-18",
-    "modified": "2019-12-18",
+    "created": "2019-12-20",
+    "modified": "2019-12-20",
     "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/allscripts\/master\/apis.json",
     "specificationVersion": "0.14",
     "apis": [
@@ -25,17 +25,21 @@
             "properties": [
                 {
                     "type": "x-openapi",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/allscripts-openapi.json"
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/allscripts\/master\/allscripts-openapi.json"
                 },
                 {
                     "type": "x-postman-collecction",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/allscripts-postman-collection.json"
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/allscripts\/master\/allscripts-postman-collection.json"
                 }
             ]
         }
     ],
     "include": [],
     "x-common": [
+        {
+            "type": "APIs.json",
+            "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/apis.json"
+        },
         {
             "type": "Twitter",
             "url": "https:\/\/twitter.com\/Allscripts"
