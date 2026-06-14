@@ -1,0 +1,15 @@
+{
+  "repo": "allscripts",
+  "feeds": [
+    {
+      "source": "https://veradigm.com/blog/",
+      "feed_url": "https://veradigm.com/blog/",
+      "title": "Veradigm Blog",
+      "saved": 0,
+      "method": "html",
+      "note": "403 Forbidden — blog feed inaccessible without authentication"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-06-13T00:00:00Z"
+}

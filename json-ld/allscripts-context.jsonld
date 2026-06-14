@@ -1,0 +1,557 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "fhir": "http://hl7.org/fhir/",
+    "veradigm": "https://developer.veradigm.com/schema/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "Patient": {
+      "@id": "fhir:Patient",
+      "@context": {
+        "id": "fhir:Resource.id",
+        "resourceType": "fhir:Resource.resourceType",
+        "identifier": {
+          "@id": "fhir:Patient.identifier",
+          "@container": "@set"
+        },
+        "active": {
+          "@id": "fhir:Patient.active",
+          "@type": "xsd:boolean"
+        },
+        "name": {
+          "@id": "schema:name",
+          "@container": "@set"
+        },
+        "gender": "fhir:Patient.gender",
+        "birthDate": {
+          "@id": "fhir:Patient.birthDate",
+          "@type": "xsd:date"
+        },
+        "address": {
+          "@id": "schema:address",
+          "@container": "@set"
+        },
+        "telecom": {
+          "@id": "fhir:Patient.telecom",
+          "@container": "@set"
+        },
+        "communication": {
+          "@id": "fhir:Patient.communication",
+          "@container": "@set"
+        },
+        "generalPractitioner": {
+          "@id": "fhir:Patient.generalPractitioner",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Practitioner": {
+      "@id": "fhir:Practitioner",
+      "@context": {
+        "id": "fhir:Resource.id",
+        "resourceType": "fhir:Resource.resourceType",
+        "identifier": {
+          "@id": "fhir:Practitioner.identifier",
+          "@container": "@set"
+        },
+        "active": {
+          "@id": "fhir:Practitioner.active",
+          "@type": "xsd:boolean"
+        },
+        "name": {
+          "@id": "schema:name",
+          "@container": "@set"
+        },
+        "telecom": {
+          "@id": "fhir:Practitioner.telecom",
+          "@container": "@set"
+        },
+        "address": {
+          "@id": "schema:address",
+          "@container": "@set"
+        },
+        "qualification": {
+          "@id": "fhir:Practitioner.qualification",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Organization": {
+      "@id": "fhir:Organization",
+      "@context": {
+        "id": "fhir:Resource.id",
+        "resourceType": "fhir:Resource.resourceType",
+        "identifier": {
+          "@id": "fhir:Organization.identifier",
+          "@container": "@set"
+        },
+        "active": {
+          "@id": "fhir:Organization.active",
+          "@type": "xsd:boolean"
+        },
+        "name": "schema:name",
+        "type": {
+          "@id": "fhir:Organization.type",
+          "@container": "@set"
+        },
+        "telecom": {
+          "@id": "fhir:Organization.telecom",
+          "@container": "@set"
+        },
+        "address": {
+          "@id": "schema:address",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Encounter": {
+      "@id": "fhir:Encounter",
+      "@context": {
+        "id": "fhir:Resource.id",
+        "resourceType": "fhir:Resource.resourceType",
+        "identifier": {
+          "@id": "fhir:Encounter.identifier",
+          "@container": "@set"
+        },
+        "status": "fhir:Encounter.status",
+        "class": "fhir:Encounter.class",
+        "type": {
+          "@id": "fhir:Encounter.type",
+          "@container": "@set"
+        },
+        "subject": "fhir:Encounter.subject",
+        "participant": {
+          "@id": "fhir:Encounter.participant",
+          "@container": "@set"
+        },
+        "period": "fhir:Encounter.period",
+        "reasonCode": {
+          "@id": "fhir:Encounter.reasonCode",
+          "@container": "@set"
+        },
+        "diagnosis": {
+          "@id": "fhir:Encounter.diagnosis",
+          "@container": "@set"
+        },
+        "location": {
+          "@id": "fhir:Encounter.location",
+          "@container": "@set"
+        },
+        "serviceProvider": "fhir:Encounter.serviceProvider"
+      }
+    },
+
+    "Condition": {
+      "@id": "fhir:Condition",
+      "@context": {
+        "id": "fhir:Resource.id",
+        "resourceType": "fhir:Resource.resourceType",
+        "clinicalStatus": "fhir:Condition.clinicalStatus",
+        "verificationStatus": "fhir:Condition.verificationStatus",
+        "category": {
+          "@id": "fhir:Condition.category",
+          "@container": "@set"
+        },
+        "code": "fhir:Condition.code",
+        "subject": "fhir:Condition.subject",
+        "encounter": "fhir:Condition.encounter",
+        "onsetDateTime": {
+          "@id": "fhir:Condition.onsetDateTime",
+          "@type": "xsd:dateTime"
+        },
+        "abatementDateTime": {
+          "@id": "fhir:Condition.abatementDateTime",
+          "@type": "xsd:dateTime"
+        },
+        "recordedDate": {
+          "@id": "fhir:Condition.recordedDate",
+          "@type": "xsd:dateTime"
+        },
+        "note": {
+          "@id": "fhir:Condition.note",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Observation": {
+      "@id": "fhir:Observation",
+      "@context": {
+        "id": "fhir:Resource.id",
+        "resourceType": "fhir:Resource.resourceType",
+        "status": "fhir:Observation.status",
+        "category": {
+          "@id": "fhir:Observation.category",
+          "@container": "@set"
+        },
+        "code": "fhir:Observation.code",
+        "subject": "fhir:Observation.subject",
+        "encounter": "fhir:Observation.encounter",
+        "effectiveDateTime": {
+          "@id": "fhir:Observation.effectiveDateTime",
+          "@type": "xsd:dateTime"
+        },
+        "valueQuantity": "fhir:Observation.valueQuantity",
+        "valueCodeableConcept": "fhir:Observation.valueCodeableConcept",
+        "valueString": {
+          "@id": "fhir:Observation.valueString",
+          "@type": "xsd:string"
+        },
+        "interpretation": {
+          "@id": "fhir:Observation.interpretation",
+          "@container": "@set"
+        },
+        "component": {
+          "@id": "fhir:Observation.component",
+          "@container": "@set"
+        },
+        "referenceRange": {
+          "@id": "fhir:Observation.referenceRange",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "MedicationRequest": {
+      "@id": "fhir:MedicationRequest",
+      "@context": {
+        "id": "fhir:Resource.id",
+        "resourceType": "fhir:Resource.resourceType",
+        "status": "fhir:MedicationRequest.status",
+        "intent": "fhir:MedicationRequest.intent",
+        "medicationCodeableConcept": "fhir:MedicationRequest.medicationCodeableConcept",
+        "medicationReference": "fhir:MedicationRequest.medicationReference",
+        "subject": "fhir:MedicationRequest.subject",
+        "encounter": "fhir:MedicationRequest.encounter",
+        "authoredOn": {
+          "@id": "fhir:MedicationRequest.authoredOn",
+          "@type": "xsd:dateTime"
+        },
+        "requester": "fhir:MedicationRequest.requester",
+        "dosageInstruction": {
+          "@id": "fhir:MedicationRequest.dosageInstruction",
+          "@container": "@set"
+        },
+        "dispenseRequest": "fhir:MedicationRequest.dispenseRequest",
+        "note": {
+          "@id": "fhir:MedicationRequest.note",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "AllergyIntolerance": {
+      "@id": "fhir:AllergyIntolerance",
+      "@context": {
+        "id": "fhir:Resource.id",
+        "resourceType": "fhir:Resource.resourceType",
+        "clinicalStatus": "fhir:AllergyIntolerance.clinicalStatus",
+        "verificationStatus": "fhir:AllergyIntolerance.verificationStatus",
+        "type": "fhir:AllergyIntolerance.type",
+        "category": {
+          "@id": "fhir:AllergyIntolerance.category",
+          "@container": "@set"
+        },
+        "criticality": "fhir:AllergyIntolerance.criticality",
+        "code": "fhir:AllergyIntolerance.code",
+        "patient": "fhir:AllergyIntolerance.patient",
+        "onsetDateTime": {
+          "@id": "fhir:AllergyIntolerance.onsetDateTime",
+          "@type": "xsd:dateTime"
+        },
+        "reaction": {
+          "@id": "fhir:AllergyIntolerance.reaction",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Immunization": {
+      "@id": "fhir:Immunization",
+      "@context": {
+        "id": "fhir:Resource.id",
+        "resourceType": "fhir:Resource.resourceType",
+        "status": "fhir:Immunization.status",
+        "vaccineCode": "fhir:Immunization.vaccineCode",
+        "patient": "fhir:Immunization.patient",
+        "encounter": "fhir:Immunization.encounter",
+        "occurrenceDateTime": {
+          "@id": "fhir:Immunization.occurrenceDateTime",
+          "@type": "xsd:dateTime"
+        },
+        "primarySource": {
+          "@id": "fhir:Immunization.primarySource",
+          "@type": "xsd:boolean"
+        },
+        "manufacturer": "fhir:Immunization.manufacturer",
+        "lotNumber": {
+          "@id": "fhir:Immunization.lotNumber",
+          "@type": "xsd:string"
+        },
+        "doseQuantity": "fhir:Immunization.doseQuantity",
+        "performer": {
+          "@id": "fhir:Immunization.performer",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Procedure": {
+      "@id": "fhir:Procedure",
+      "@context": {
+        "id": "fhir:Resource.id",
+        "resourceType": "fhir:Resource.resourceType",
+        "status": "fhir:Procedure.status",
+        "category": "fhir:Procedure.category",
+        "code": "fhir:Procedure.code",
+        "subject": "fhir:Procedure.subject",
+        "encounter": "fhir:Procedure.encounter",
+        "performedPeriod": "fhir:Procedure.performedPeriod",
+        "performer": {
+          "@id": "fhir:Procedure.performer",
+          "@container": "@set"
+        },
+        "reasonCode": {
+          "@id": "fhir:Procedure.reasonCode",
+          "@container": "@set"
+        },
+        "note": {
+          "@id": "fhir:Procedure.note",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "DiagnosticReport": {
+      "@id": "fhir:DiagnosticReport",
+      "@context": {
+        "id": "fhir:Resource.id",
+        "resourceType": "fhir:Resource.resourceType",
+        "status": "fhir:DiagnosticReport.status",
+        "category": {
+          "@id": "fhir:DiagnosticReport.category",
+          "@container": "@set"
+        },
+        "code": "fhir:DiagnosticReport.code",
+        "subject": "fhir:DiagnosticReport.subject",
+        "encounter": "fhir:DiagnosticReport.encounter",
+        "effectiveDateTime": {
+          "@id": "fhir:DiagnosticReport.effectiveDateTime",
+          "@type": "xsd:dateTime"
+        },
+        "issued": {
+          "@id": "fhir:DiagnosticReport.issued",
+          "@type": "xsd:dateTime"
+        },
+        "performer": {
+          "@id": "fhir:DiagnosticReport.performer",
+          "@container": "@set"
+        },
+        "result": {
+          "@id": "fhir:DiagnosticReport.result",
+          "@container": "@set"
+        },
+        "conclusion": {
+          "@id": "fhir:DiagnosticReport.conclusion",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "DocumentReference": {
+      "@id": "fhir:DocumentReference",
+      "@context": {
+        "id": "fhir:Resource.id",
+        "resourceType": "fhir:Resource.resourceType",
+        "status": "fhir:DocumentReference.status",
+        "docStatus": "fhir:DocumentReference.docStatus",
+        "type": "fhir:DocumentReference.type",
+        "category": {
+          "@id": "fhir:DocumentReference.category",
+          "@container": "@set"
+        },
+        "subject": "fhir:DocumentReference.subject",
+        "date": {
+          "@id": "fhir:DocumentReference.date",
+          "@type": "xsd:dateTime"
+        },
+        "author": {
+          "@id": "fhir:DocumentReference.author",
+          "@container": "@set"
+        },
+        "custodian": "fhir:DocumentReference.custodian",
+        "content": {
+          "@id": "fhir:DocumentReference.content",
+          "@container": "@set"
+        },
+        "context": "fhir:DocumentReference.context"
+      }
+    },
+
+    "CarePlan": {
+      "@id": "fhir:CarePlan",
+      "@context": {
+        "id": "fhir:Resource.id",
+        "resourceType": "fhir:Resource.resourceType",
+        "status": "fhir:CarePlan.status",
+        "intent": "fhir:CarePlan.intent",
+        "category": {
+          "@id": "fhir:CarePlan.category",
+          "@container": "@set"
+        },
+        "title": "schema:name",
+        "description": "schema:description",
+        "subject": "fhir:CarePlan.subject",
+        "encounter": "fhir:CarePlan.encounter",
+        "period": "fhir:CarePlan.period",
+        "activity": {
+          "@id": "fhir:CarePlan.activity",
+          "@container": "@set"
+        },
+        "goal": {
+          "@id": "fhir:CarePlan.goal",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Goal": {
+      "@id": "fhir:Goal",
+      "@context": {
+        "id": "fhir:Resource.id",
+        "resourceType": "fhir:Resource.resourceType",
+        "lifecycleStatus": "fhir:Goal.lifecycleStatus",
+        "achievementStatus": "fhir:Goal.achievementStatus",
+        "description": "schema:description",
+        "subject": "fhir:Goal.subject",
+        "startDate": {
+          "@id": "fhir:Goal.startDate",
+          "@type": "xsd:date"
+        },
+        "target": {
+          "@id": "fhir:Goal.target",
+          "@container": "@set"
+        },
+        "note": {
+          "@id": "fhir:Goal.note",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Location": {
+      "@id": "fhir:Location",
+      "@context": {
+        "id": "fhir:Resource.id",
+        "resourceType": "fhir:Resource.resourceType",
+        "status": "fhir:Location.status",
+        "name": "schema:name",
+        "description": "schema:description",
+        "mode": "fhir:Location.mode",
+        "type": {
+          "@id": "fhir:Location.type",
+          "@container": "@set"
+        },
+        "telecom": {
+          "@id": "fhir:Location.telecom",
+          "@container": "@set"
+        },
+        "address": "schema:address",
+        "position": "fhir:Location.position",
+        "managingOrganization": "fhir:Location.managingOrganization"
+      }
+    },
+
+    "Coverage": {
+      "@id": "fhir:Coverage",
+      "@context": {
+        "id": "fhir:Resource.id",
+        "resourceType": "fhir:Resource.resourceType",
+        "status": "fhir:Coverage.status",
+        "type": "fhir:Coverage.type",
+        "subscriber": "fhir:Coverage.subscriber",
+        "subscriberId": {
+          "@id": "fhir:Coverage.subscriberId",
+          "@type": "xsd:string"
+        },
+        "beneficiary": "fhir:Coverage.beneficiary",
+        "relationship": "fhir:Coverage.relationship",
+        "period": "fhir:Coverage.period",
+        "payor": {
+          "@id": "fhir:Coverage.payor",
+          "@container": "@set"
+        },
+        "class": {
+          "@id": "fhir:Coverage.class",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Device": {
+      "@id": "fhir:Device",
+      "@context": {
+        "id": "fhir:Resource.id",
+        "resourceType": "fhir:Resource.resourceType",
+        "identifier": {
+          "@id": "fhir:Device.identifier",
+          "@container": "@set"
+        },
+        "status": "fhir:Device.status",
+        "manufacturer": {
+          "@id": "fhir:Device.manufacturer",
+          "@type": "xsd:string"
+        },
+        "serialNumber": {
+          "@id": "fhir:Device.serialNumber",
+          "@type": "xsd:string"
+        },
+        "deviceName": {
+          "@id": "fhir:Device.deviceName",
+          "@container": "@set"
+        },
+        "type": "fhir:Device.type",
+        "patient": "fhir:Device.patient",
+        "owner": "fhir:Device.owner"
+      }
+    },
+
+    "Bundle": {
+      "@id": "fhir:Bundle",
+      "@context": {
+        "id": "fhir:Resource.id",
+        "resourceType": "fhir:Resource.resourceType",
+        "type": "fhir:Bundle.type",
+        "total": {
+          "@id": "fhir:Bundle.total",
+          "@type": "xsd:integer"
+        },
+        "link": {
+          "@id": "fhir:Bundle.link",
+          "@container": "@set"
+        },
+        "entry": {
+          "@id": "fhir:Bundle.entry",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "OperationOutcome": {
+      "@id": "fhir:OperationOutcome",
+      "@context": {
+        "id": "fhir:Resource.id",
+        "resourceType": "fhir:Resource.resourceType",
+        "issue": {
+          "@id": "fhir:OperationOutcome.issue",
+          "@container": "@set"
+        }
+      }
+    }
+  }
+}
