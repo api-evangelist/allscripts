@@ -1,144 +1,158 @@
 name: Allscripts
-description: Allscripts, now operating as Veradigm, is a healthcare IT company providing REST and FHIR APIs for EHR data exchange, clinical workflows, patient portal, and practice management integrations. The Veradigm Developer Program (formerly Allscripts Developer Program) offers FHIR R4 APIs covering 28 clinical resources as well as a Unity API for clinical, scheduling, demographic, and practice management functions across Allscripts EHR products.
+description: Allscripts, now operating as Veradigm, is a healthcare IT company providing
+  REST and FHIR APIs for EHR data exchange, clinical workflows, patient portal, and
+  practice management integrations. The Veradigm Developer Program (formerly Allscripts
+  Developer Program) offers FHIR R4 APIs covering 28 clinical resources as well as
+  a Unity API for clinical, scheduling, demographic, and practice management functions
+  across Allscripts EHR products.
 image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/allscripts/refs/heads/main/apis.yml
-version: "0.19"
-created: "2026-06-13"
-modified: "2026-06-13"
+version: '0.19'
+created: '2026-06-13'
+modified: '2026-06-13'
 tags:
-  - Healthcare IT
-  - EHR
+- Healthcare IT
+- EHR
+- FHIR
+- Clinical Data
+- Practice Management
+- HL7
+apis:
+- name: Veradigm FHIR R4 API
+  description: The Veradigm FHIR R4 API provides RESTful access to clinical, demographic,
+    and facility data using the HL7 FHIR R4 standard. It supports 28 FHIR resources
+    including Patient, Condition, Observation, MedicationRequest, Encounter, and more.
+    Authentication uses OAuth 2.0 with SMART on FHIR Application Launch Framework
+    2.0. Endpoints are available for both patient-facing (ending in /open) and provider-facing
+    (ending in /fhir) applications.
+  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.veradigm.com/Fhir/Introduction
+  baseURL: https://open.platform.veradigm.com
+  tags:
   - FHIR
   - Clinical Data
-  - Practice Management
+  - EHR
   - HL7
-
-apis:
-
-  - name: Veradigm FHIR R4 API
-    description: The Veradigm FHIR R4 API provides RESTful access to clinical, demographic, and facility data using the HL7 FHIR R4 standard. It supports 28 FHIR resources including Patient, Condition, Observation, MedicationRequest, Encounter, and more. Authentication uses OAuth 2.0 with SMART on FHIR Application Launch Framework 2.0. Endpoints are available for both patient-facing (ending in /open) and provider-facing (ending in /fhir) applications.
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-    humanURL: https://developer.veradigm.com/Fhir/Introduction
-    baseURL: https://open.platform.veradigm.com
-    tags:
-      - FHIR
-      - Clinical Data
-      - EHR
-      - HL7
-      - Patient Data
-      - Healthcare
-    properties:
-      - type: Documentation
-        url: https://developer.veradigm.com/Fhir/Introduction
-      - type: OpenAPI
-        url: https://developer.veradigm.com/Content/fhir/GetStarted/Concepts/Considerations.html
-      - type: Sandbox
-        url: https://developer.veradigm.com/Fhir/FHIR_Sandboxes
-      - type: EndpointDirectory
-        url: https://developer.veradigm.com/Fhir/EndpointDirectory
-      - type: Authentication
-        url: https://developer.veradigm.com/Fhir/SMARTonFHIR
-      - type: Resources
-        url: https://developer.veradigm.com/Fhir/Resources
-      - type: Plans
-        url: https://raw.githubusercontent.com/api-evangelist/allscripts/refs/heads/main/plans/veradigm-fhir-plans.yml
-      - type: RateLimits
-        url: https://raw.githubusercontent.com/api-evangelist/allscripts/refs/heads/main/rate-limits/veradigm-fhir-rate-limits.yml
-      - type: TermsOfService
-        url: https://developer.veradigm.com/Content/fhir/Allscripts_FHIR_API_License_2017.2.pdf
-    contact:
-      - FN: Veradigm Connect Support
-        email: VeradigmConnect@veradigm.com
-        url: https://developer.veradigm.com/
-
-  - name: Veradigm Unity API
-    description: The Veradigm Unity API exposes clinical, scheduling, demographic, and practice management functions across Allscripts EHR product lines including Touchworks, Professional EHR, and acute care solutions. It supports both SOAP and REST endpoints with an action-based dispatch model. The Unity API is available to certified Integrator members and provides read-write access to cloud-hosted Allscripts solutions for building custom healthcare integrations.
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-    humanURL: https://developer.allscripts.com/
-    baseURL: https://remotecentral.allscripts.com
-    tags:
-      - EHR
-      - Clinical
-      - Scheduling
-      - Practice Management
-      - REST
-      - SOAP
-      - Healthcare IT
-    properties:
-      - type: Documentation
-        url: https://developer.allscripts.com/
-      - type: GettingStarted
-        url: https://developer.allscripts.com/Home/LearnMore
-      - type: Plans
-        url: https://raw.githubusercontent.com/api-evangelist/allscripts/refs/heads/main/plans/unity-api-plans.yml
-      - type: RateLimits
-        url: https://raw.githubusercontent.com/api-evangelist/allscripts/refs/heads/main/rate-limits/unity-api-rate-limits.yml
-      - type: TermsOfService
-        url: https://veradigm.com/img/legal/pm/Unity-API-EULA.pdf
-      - type: AppExpo
-        url: https://expo.veradigm.com/apps
-    contact:
-      - FN: Veradigm Connect Support
-        email: VeradigmConnect@veradigm.com
-        url: https://developer.veradigm.com/
-
-  - name: Veradigm Paragon Open API
-    description: The Paragon Open API provides FHIR-compliant access to data from the Veradigm Paragon acute care EHR platform. It enables third-party applications to integrate with Paragon to access patient clinical data, supporting interoperability requirements for hospital and acute care settings.
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-    humanURL: https://developer.veradigm.com/Content/fhir/paragon/ParagonOpenAPI_Index.html
-    baseURL: https://open.platform.veradigm.com
-    tags:
-      - FHIR
-      - Acute Care
-      - EHR
-      - Paragon
-      - Hospital
-      - Healthcare
-    properties:
-      - type: Documentation
-        url: https://developer.veradigm.com/Content/fhir/paragon/ParagonOpenAPI_Index.html
-      - type: EndpointDirectory
-        url: https://developer.veradigm.com/Fhir/EndpointDirectory
-      - type: Plans
-        url: https://raw.githubusercontent.com/api-evangelist/allscripts/refs/heads/main/plans/veradigm-fhir-plans.yml
-      - type: RateLimits
-        url: https://raw.githubusercontent.com/api-evangelist/allscripts/refs/heads/main/rate-limits/veradigm-fhir-rate-limits.yml
-      - type: TermsOfService
-        url: https://developer.veradigm.com/Content/fhir/Allscripts_FHIR_API_License_2017.2.pdf
-    contact:
-      - FN: Veradigm Connect Support
-        email: VeradigmConnect@veradigm.com
-        url: https://developer.veradigm.com/
-
-common:
-  - type: DeveloperPortal
+  - Patient Data
+  - Healthcare
+  properties:
+  - type: Documentation
+    url: https://developer.veradigm.com/Fhir/Introduction
+  - type: OpenAPI
+    url: https://developer.veradigm.com/Content/fhir/GetStarted/Concepts/Considerations.html
+  - type: Sandbox
+    url: https://developer.veradigm.com/Fhir/FHIR_Sandboxes
+  - type: EndpointDirectory
+    url: https://developer.veradigm.com/Fhir/EndpointDirectory
+  - type: Authentication
+    url: https://developer.veradigm.com/Fhir/SMARTonFHIR
+  - type: Resources
+    url: https://developer.veradigm.com/Fhir/Resources
+  - type: Plans
+    url: https://raw.githubusercontent.com/api-evangelist/allscripts/refs/heads/main/plans/veradigm-fhir-plans.yml
+  - type: RateLimits
+    url: https://raw.githubusercontent.com/api-evangelist/allscripts/refs/heads/main/rate-limits/veradigm-fhir-rate-limits.yml
+  - type: TermsOfService
+    url: https://developer.veradigm.com/Content/fhir/Allscripts_FHIR_API_License_2017.2.pdf
+  - url: graphql/allscripts-graphql.md
+    type: GraphQL
+  contact:
+  - FN: Veradigm Connect Support
+    email: VeradigmConnect@veradigm.com
     url: https://developer.veradigm.com/
-  - type: DeveloperPortalLegacy
+- name: Veradigm Unity API
+  description: The Veradigm Unity API exposes clinical, scheduling, demographic, and
+    practice management functions across Allscripts EHR product lines including Touchworks,
+    Professional EHR, and acute care solutions. It supports both SOAP and REST endpoints
+    with an action-based dispatch model. The Unity API is available to certified Integrator
+    members and provides read-write access to cloud-hosted Allscripts solutions for
+    building custom healthcare integrations.
+  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.allscripts.com/
+  baseURL: https://remotecentral.allscripts.com
+  tags:
+  - EHR
+  - Clinical
+  - Scheduling
+  - Practice Management
+  - REST
+  - SOAP
+  - Healthcare IT
+  properties:
+  - type: Documentation
     url: https://developer.allscripts.com/
+  - type: GettingStarted
+    url: https://developer.allscripts.com/Home/LearnMore
+  - type: Plans
+    url: https://raw.githubusercontent.com/api-evangelist/allscripts/refs/heads/main/plans/unity-api-plans.yml
+  - type: RateLimits
+    url: https://raw.githubusercontent.com/api-evangelist/allscripts/refs/heads/main/rate-limits/unity-api-rate-limits.yml
+  - type: TermsOfService
+    url: https://veradigm.com/img/legal/pm/Unity-API-EULA.pdf
   - type: AppExpo
     url: https://expo.veradigm.com/apps
-  - type: SignUp
-    url: https://developer.veradigm.com/Content/fhir/content/Developer_Signup/
+  contact:
+  - FN: Veradigm Connect Support
+    email: VeradigmConnect@veradigm.com
+    url: https://developer.veradigm.com/
+- name: Veradigm Paragon Open API
+  description: The Paragon Open API provides FHIR-compliant access to data from the
+    Veradigm Paragon acute care EHR platform. It enables third-party applications
+    to integrate with Paragon to access patient clinical data, supporting interoperability
+    requirements for hospital and acute care settings.
+  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.veradigm.com/Content/fhir/paragon/ParagonOpenAPI_Index.html
+  baseURL: https://open.platform.veradigm.com
+  tags:
+  - FHIR
+  - Acute Care
+  - EHR
+  - Paragon
+  - Hospital
+  - Healthcare
+  properties:
+  - type: Documentation
+    url: https://developer.veradigm.com/Content/fhir/paragon/ParagonOpenAPI_Index.html
+  - type: EndpointDirectory
+    url: https://developer.veradigm.com/Fhir/EndpointDirectory
   - type: Plans
-    url: https://developer.veradigm.com/Home/LearnMore
+    url: https://raw.githubusercontent.com/api-evangelist/allscripts/refs/heads/main/plans/veradigm-fhir-plans.yml
+  - type: RateLimits
+    url: https://raw.githubusercontent.com/api-evangelist/allscripts/refs/heads/main/rate-limits/veradigm-fhir-rate-limits.yml
   - type: TermsOfService
-    url: https://veradigm.com/legal/terms-of-use/
-  - type: PrivacyPolicy
-    url: https://veradigm.com/legal/privacy-notice/
-  - type: MasterClientAgreement
-    url: https://veradigm.com/img/legal/Client-Master-Agreement.pdf
-  - type: SecurityProgram
-    url: https://veradigm.com/legal/privacy-and-security-program/
-  - type: ComplianceONC
-    url: https://veradigm.com/legal/onc-reg-compliance/
-  - type: Blog
-    url: https://veradigm.com/blog/
-  - type: APIWorkshop
-    url: https://lp.veradigm.com/api-workshop-registration-april
-  - type: FinOps
-    url: https://raw.githubusercontent.com/api-evangelist/allscripts/refs/heads/main/finops/allscripts-finops.yml
-
+    url: https://developer.veradigm.com/Content/fhir/Allscripts_FHIR_API_License_2017.2.pdf
+  contact:
+  - FN: Veradigm Connect Support
+    email: VeradigmConnect@veradigm.com
+    url: https://developer.veradigm.com/
+common:
+- type: DeveloperPortal
+  url: https://developer.veradigm.com/
+- type: DeveloperPortalLegacy
+  url: https://developer.allscripts.com/
+- type: AppExpo
+  url: https://expo.veradigm.com/apps
+- type: SignUp
+  url: https://developer.veradigm.com/Content/fhir/content/Developer_Signup/
+- type: Plans
+  url: https://developer.veradigm.com/Home/LearnMore
+- type: TermsOfService
+  url: https://veradigm.com/legal/terms-of-use/
+- type: PrivacyPolicy
+  url: https://veradigm.com/legal/privacy-notice/
+- type: MasterClientAgreement
+  url: https://veradigm.com/img/legal/Client-Master-Agreement.pdf
+- type: SecurityProgram
+  url: https://veradigm.com/legal/privacy-and-security-program/
+- type: ComplianceONC
+  url: https://veradigm.com/legal/onc-reg-compliance/
+- type: Blog
+  url: https://veradigm.com/blog/
+- type: APIWorkshop
+  url: https://lp.veradigm.com/api-workshop-registration-april
+- type: FinOps
+  url: https://raw.githubusercontent.com/api-evangelist/allscripts/refs/heads/main/finops/allscripts-finops.yml
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
-    url: https://apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
+  url: https://apievangelist.com

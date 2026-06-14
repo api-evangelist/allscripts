@@ -1,0 +1,1112 @@
+"""
+Allscripts (Veradigm) GraphQL Schema
+Conceptual schema representing the Veradigm FHIR R4 API and Unity API domain model.
+Sources: https://developer.veradigm.com/ and https://developer.allscripts.com/
+"""
+
+# ─── Scalars ─────────────────────────────────────────────────────────────────
+
+scalar Date
+scalar DateTime
+scalar JSON
+
+# ─── Enums ───────────────────────────────────────────────────────────────────
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+  UNKNOWN
+}
+
+enum MaritalStatus {
+  SINGLE
+  MARRIED
+  DIVORCED
+  WIDOWED
+  SEPARATED
+  UNKNOWN
+}
+
+enum ContactRelationship {
+  SELF
+  SPOUSE
+  PARENT
+  CHILD
+  SIBLING
+  GUARDIAN
+  EMERGENCY
+  OTHER
+}
+
+enum InsuranceType {
+  PRIMARY
+  SECONDARY
+  TERTIARY
+  SELF_PAY
+}
+
+enum EncounterStatusValue {
+  PLANNED
+  ARRIVED
+  TRIAGED
+  IN_PROGRESS
+  ON_LEAVE
+  FINISHED
+  CANCELLED
+  UNKNOWN
+}
+
+enum EncounterClass {
+  AMBULATORY
+  INPATIENT
+  EMERGENCY
+  OBSERVATION
+  HOME_HEALTH
+  VIRTUAL
+  OTHER
+}
+
+enum AllergyStatusValue {
+  ACTIVE
+  INACTIVE
+  RESOLVED
+}
+
+enum AllergySeverity {
+  MILD
+  MODERATE
+  SEVERE
+  LIFE_THREATENING
+}
+
+enum AllergyCategory {
+  FOOD
+  MEDICATION
+  ENVIRONMENT
+  BIOLOGIC
+}
+
+enum ProcedureStatusValue {
+  PREPARATION
+  IN_PROGRESS
+  NOT_DONE
+  ON_HOLD
+  STOPPED
+  COMPLETED
+  ENTERED_IN_ERROR
+  UNKNOWN
+}
+
+enum AppointmentStatusValue {
+  PROPOSED
+  PENDING
+  BOOKED
+  ARRIVED
+  FULFILLED
+  CANCELLED
+  NO_SHOW
+  WAITLIST
+}
+
+enum MedicationRouteCode {
+  ORAL
+  INTRAVENOUS
+  INTRAMUSCULAR
+  SUBCUTANEOUS
+  TOPICAL
+  INHALATION
+  OPHTHALMIC
+  OTIC
+  NASAL
+  RECTAL
+  TRANSDERMAL
+  OTHER
+}
+
+enum LabResultStatus {
+  REGISTERED
+  PARTIAL
+  PRELIMINARY
+  FINAL
+  AMENDED
+  CORRECTED
+  CANCELLED
+  ENTERED_IN_ERROR
+}
+
+enum DocumentStatus {
+  CURRENT
+  SUPERSEDED
+  ENTERED_IN_ERROR
+}
+
+enum ClaimStatus {
+  ACTIVE
+  CANCELLED
+  DRAFT
+  ENTERED_IN_ERROR
+}
+
+enum FHIRVersion {
+  R4
+  R3
+  R2
+}
+
+enum TokenType {
+  BEARER
+  REFRESH
+}
+
+enum WebhookStatus {
+  ACTIVE
+  INACTIVE
+  ERROR
+}
+
+# ─── Patient ──────────────────────────────────────────────────────────────────
+
+"""Core patient record as surfaced by the FHIR Patient resource and Unity API GetPatient action."""
+type Patient {
+  id: ID!
+  enterpriseId: String
+  mrn: String
+  demographics: PatientDemographics
+  contacts: [PatientContact]
+  insurances: [PatientInsurance]
+  encounters: [Encounter]
+  allergies: [Allergy]
+  medications: [Medication]
+  diagnoses: [Diagnosis]
+  appointments: [Appointment]
+  documents: [Document]
+  labs: [LabOrder]
+  imaging: [ImagingOrder]
+  active: Boolean
+  deceasedDate: Date
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""Extended patient details including identifiers and flags."""
+type PatientDetails {
+  patient: Patient!
+  fhirId: String
+  ssn: String
+  externalIds: [KeyValue]
+  preferredLanguage: String
+  interpreterRequired: Boolean
+  race: String
+  ethnicity: String
+  veteranStatus: Boolean
+  smokingStatus: String
+  advanceDirective: Boolean
+}
+
+"""Demographic information for a patient."""
+type PatientDemographics {
+  id: ID!
+  patientId: ID!
+  firstName: String!
+  lastName: String!
+  middleName: String
+  prefix: String
+  suffix: String
+  dateOfBirth: Date
+  gender: Gender
+  maritalStatus: MaritalStatus
+  ssn: String
+  email: String
+  phoneHome: String
+  phoneMobile: String
+  phoneWork: String
+  address: Address
+}
+
+"""Emergency contact or responsible party for a patient."""
+type PatientContact {
+  id: ID!
+  patientId: ID!
+  relationship: ContactRelationship
+  name: String
+  phone: String
+  email: String
+  address: Address
+  isPrimary: Boolean
+}
+
+"""Insurance coverage record associated with a patient."""
+type PatientInsurance {
+  id: ID!
+  patientId: ID!
+  insuranceType: InsuranceType
+  payerName: String
+  payerId: String
+  planName: String
+  groupNumber: String
+  memberNumber: String
+  subscriberName: String
+  subscriberDOB: Date
+  effectiveDate: Date
+  terminationDate: Date
+  copay: Float
+  deductible: Float
+  coinsurance: Float
+}
+
+# ─── Encounter ────────────────────────────────────────────────────────────────
+
+"""A clinical encounter linking a patient, provider, location, and visit reason."""
+type Encounter {
+  id: ID!
+  patient: Patient
+  provider: Provider
+  location: Location
+  practice: Practice
+  type: EncounterType
+  status: EncounterStatus
+  details: EncounterDetails
+  diagnoses: [Diagnosis]
+  procedures: [Procedure]
+  orders: [MedOrder]
+  labs: [LabOrder]
+  documents: [Document]
+  startDate: DateTime
+  endDate: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""Extended encounter metadata."""
+type EncounterDetails {
+  encounter: Encounter!
+  chiefComplaint: String
+  visitReason: String
+  dischargeDisposition: String
+  dischargeInstructions: String
+  admissionSource: String
+  lengthOfStay: Int
+  billable: Boolean
+  attestedBy: Provider
+  attestedAt: DateTime
+}
+
+"""Classification of an encounter visit type."""
+type EncounterType {
+  id: ID!
+  code: String
+  display: String
+  system: String
+  encounterClass: EncounterClass
+  description: String
+}
+
+"""Clinical status of an encounter."""
+type EncounterStatus {
+  id: ID!
+  value: EncounterStatusValue!
+  updatedAt: DateTime
+  updatedBy: String
+}
+
+# ─── Diagnosis ────────────────────────────────────────────────────────────────
+
+"""A clinical diagnosis or problem list entry mapped to a coding system."""
+type Diagnosis {
+  id: ID!
+  patient: Patient
+  encounter: Encounter
+  code: DiagnosisCode
+  details: DiagnosisDetails
+  onsetDate: Date
+  resolvedDate: Date
+  active: Boolean
+  chronic: Boolean
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""Extended diagnosis metadata including narrative and verification status."""
+type DiagnosisDetails {
+  diagnosis: Diagnosis!
+  narrative: String
+  verificationStatus: String
+  clinicalStatus: String
+  severity: String
+  stage: String
+  evidence: [String]
+  recordedBy: Provider
+  recordedAt: DateTime
+}
+
+"""Coded representation of a diagnosis using a recognized coding system."""
+type DiagnosisCode {
+  id: ID!
+  system: String
+  code: String!
+  display: String
+  version: String
+  icd10: ICD10
+  icd11: ICD11
+}
+
+"""ICD-10 coded diagnosis entry."""
+type ICD10 {
+  id: ID!
+  code: String!
+  description: String
+  category: String
+  chapter: String
+  billable: Boolean
+  shortDescription: String
+}
+
+"""ICD-11 coded diagnosis entry for forward-compatible implementations."""
+type ICD11 {
+  id: ID!
+  code: String!
+  stem: String
+  description: String
+  chapter: String
+  linearization: String
+  billable: Boolean
+}
+
+# ─── Medications & Orders ─────────────────────────────────────────────────────
+
+"""A medication order (prescription or administration request)."""
+type MedOrder {
+  id: ID!
+  patient: Patient
+  encounter: Encounter
+  provider: Provider
+  medication: Medication
+  dosage: MedicationDosage
+  sig: MedicationSig
+  route: MedicationRoute
+  orderedAt: DateTime
+  startDate: Date
+  endDate: Date
+  refills: Int
+  status: String
+  daysSupply: Int
+  quantity: Float
+  quantityUnit: String
+  connectRx: ConnectRx
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""A medication product record."""
+type Medication {
+  id: ID!
+  details: MedicationDetails
+  ndcCode: String
+  rxNormCode: String
+  name: String!
+  genericName: String
+  brandName: String
+  form: String
+  strength: String
+  controlled: Boolean
+  scheduleClass: String
+  deaSchedule: String
+}
+
+"""Extended medication metadata."""
+type MedicationDetails {
+  medication: Medication!
+  manufacturer: String
+  labeler: String
+  packageDescription: String
+  therapeuticClass: String
+  pharmacologicClass: String
+  contraindications: [String]
+  interactions: [String]
+  warnings: [String]
+}
+
+"""Route of administration for a medication."""
+type MedicationRoute {
+  id: ID!
+  code: MedicationRouteCode
+  display: String
+  description: String
+}
+
+"""Dosage instructions for a medication order."""
+type MedicationDosage {
+  id: ID!
+  dose: Float
+  doseUnit: String
+  frequency: String
+  frequencyCode: String
+  duration: Int
+  durationUnit: String
+  asNeeded: Boolean
+  maxDosePerPeriod: String
+}
+
+"""Sig (prescription instruction) for a medication."""
+type MedicationSig {
+  id: ID!
+  freeTextSig: String
+  dose: String
+  route: String
+  frequency: String
+  duration: String
+  refills: Int
+  dispensingInstructions: String
+}
+
+# ─── Allergy ──────────────────────────────────────────────────────────────────
+
+"""An allergy or intolerance record for a patient."""
+type Allergy {
+  id: ID!
+  patient: Patient
+  details: AllergyDetails
+  substance: String
+  substanceCode: String
+  reaction: [String]
+  severity: AllergySeverity
+  category: AllergyCategory
+  status: AllergyStatus
+  onsetDate: Date
+  recordedDate: Date
+  recorder: Provider
+}
+
+"""Extended allergy metadata."""
+type AllergyDetails {
+  allergy: Allergy!
+  clinicalNotes: String
+  criticality: String
+  lastOccurrence: Date
+  verifiedBy: Provider
+  verifiedAt: DateTime
+  snomedCode: String
+  rxNormCode: String
+}
+
+"""Clinical status of an allergy record."""
+type AllergyStatus {
+  id: ID!
+  value: AllergyStatusValue!
+  updatedAt: DateTime
+  updatedBy: String
+}
+
+# ─── Procedure ────────────────────────────────────────────────────────────────
+
+"""A clinical procedure performed on or ordered for a patient."""
+type Procedure {
+  id: ID!
+  patient: Patient
+  encounter: Encounter
+  provider: Provider
+  details: ProcedureDetails
+  cpt: CPT
+  status: ProcedureStatus
+  performedDate: DateTime
+  bodySite: String
+  outcome: String
+  complication: [String]
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""Extended procedure metadata."""
+type ProcedureDetails {
+  procedure: Procedure!
+  narrative: String
+  indication: String
+  anesthesiaType: String
+  assistant: Provider
+  facility: Location
+  duration: Int
+  reportId: String
+}
+
+"""CPT (Current Procedural Terminology) code for billing and documentation."""
+type CPT {
+  id: ID!
+  code: String!
+  description: String
+  category: String
+  modifiers: [String]
+  relativeValueUnit: Float
+  billable: Boolean
+}
+
+"""Status of a procedure."""
+type ProcedureStatus {
+  id: ID!
+  value: ProcedureStatusValue!
+  updatedAt: DateTime
+  updatedBy: String
+}
+
+# ─── Laboratory ───────────────────────────────────────────────────────────────
+
+"""A laboratory test panel or collection."""
+type Lab {
+  id: ID!
+  name: String
+  loincCode: String
+  category: String
+  specimenType: String
+  turnaroundTime: String
+  active: Boolean
+}
+
+"""A laboratory order placed for a patient."""
+type LabOrder {
+  id: ID!
+  patient: Patient
+  encounter: Encounter
+  orderedBy: Provider
+  lab: Lab
+  orderedAt: DateTime
+  collectedAt: DateTime
+  status: LabResultStatus
+  priority: String
+  clinicalNotes: String
+  results: [LabResult]
+}
+
+"""A laboratory result associated with an order."""
+type LabResult {
+  id: ID!
+  labOrder: LabOrder
+  loincCode: String
+  testName: String
+  status: LabResultStatus
+  resultedAt: DateTime
+  resultedBy: String
+  values: [LabResultValue]
+  narrative: String
+  performingLab: String
+}
+
+"""An individual value within a laboratory result."""
+type LabResultValue {
+  id: ID!
+  labResult: LabResult
+  name: String
+  value: String
+  unit: String
+  referenceRange: String
+  interpretation: String
+  abnormal: Boolean
+  critical: Boolean
+  loincCode: String
+}
+
+# ─── Imaging ─────────────────────────────────────────────────────────────────
+
+"""Diagnostic imaging study information."""
+type Imaging {
+  id: ID!
+  modality: String
+  description: String
+  bodyPart: String
+  snomedCode: String
+  active: Boolean
+}
+
+"""An imaging order placed for a patient."""
+type ImagingOrder {
+  id: ID!
+  patient: Patient
+  encounter: Encounter
+  orderedBy: Provider
+  imaging: Imaging
+  orderedAt: DateTime
+  scheduledAt: DateTime
+  status: String
+  priority: String
+  clinicalIndication: String
+  result: ImagingResult
+}
+
+"""Result of a completed imaging study."""
+type ImagingResult {
+  id: ID!
+  imagingOrder: ImagingOrder
+  accessionNumber: String
+  studyDate: DateTime
+  radiologist: Provider
+  impression: String
+  findings: String
+  status: String
+  dicomUrl: String
+  reportedAt: DateTime
+}
+
+# ─── Document ─────────────────────────────────────────────────────────────────
+
+"""A clinical document attached to a patient record or encounter."""
+type Document {
+  id: ID!
+  patient: Patient
+  encounter: Encounter
+  details: DocumentDetails
+  type: String
+  title: String
+  status: DocumentStatus
+  createdAt: DateTime
+  updatedAt: DateTime
+  author: Provider
+  custodian: Practice
+}
+
+"""Extended document metadata including format and content location."""
+type DocumentDetails {
+  document: Document!
+  loincCode: String
+  mimeType: String
+  language: String
+  size: Int
+  url: String
+  hash: String
+  context: String
+  description: String
+  relatesTo: [String]
+  ccdaVersion: String
+}
+
+# ─── Appointment & Scheduling ─────────────────────────────────────────────────
+
+"""A scheduled appointment for a patient with a provider."""
+type Appointment {
+  id: ID!
+  patient: Patient
+  provider: Provider
+  location: Location
+  practice: Practice
+  details: AppointmentDetails
+  type: AppointmentType
+  status: AppointmentStatus
+  slot: SlotDetails
+  startTime: DateTime
+  endTime: DateTime
+  duration: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""Extended appointment metadata."""
+type AppointmentDetails {
+  appointment: Appointment!
+  reasonCode: String
+  reasonDisplay: String
+  chiefComplaint: String
+  instructions: String
+  reminderSent: Boolean
+  confirmationNumber: String
+  cancelReason: String
+  noShowReason: String
+}
+
+"""Classification of appointment visit type."""
+type AppointmentType {
+  id: ID!
+  code: String
+  display: String
+  description: String
+  defaultDuration: Int
+  billable: Boolean
+}
+
+"""Status of a scheduled appointment."""
+type AppointmentStatus {
+  id: ID!
+  value: AppointmentStatusValue!
+  updatedAt: DateTime
+  updatedBy: String
+}
+
+"""A provider's schedule for availability management."""
+type Schedule {
+  id: ID!
+  provider: Provider
+  location: Location
+  slots: [SlotDetails]
+  activeFrom: Date
+  activeThrough: Date
+  planningHorizon: String
+  comment: String
+}
+
+"""An individual available slot on a provider schedule."""
+type SlotDetails {
+  id: ID!
+  schedule: Schedule
+  type: AppointmentType
+  start: DateTime!
+  end: DateTime!
+  status: String
+  comment: String
+  overbooked: Boolean
+}
+
+# ─── Provider & Practice ──────────────────────────────────────────────────────
+
+"""A healthcare provider (physician, nurse practitioner, etc.)."""
+type Provider {
+  id: ID!
+  details: ProviderDetails
+  credentials: ProviderCredentials
+  practice: Practice
+  locations: [Location]
+  schedule: Schedule
+  npi: String
+  active: Boolean
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""Extended provider demographic and contact details."""
+type ProviderDetails {
+  provider: Provider!
+  firstName: String!
+  lastName: String!
+  middleName: String
+  prefix: String
+  suffix: String
+  specialty: String
+  subSpecialty: String
+  email: String
+  phone: String
+  fax: String
+  address: Address
+  gender: Gender
+  languages: [String]
+}
+
+"""Licensing and credentialing information for a provider."""
+type ProviderCredentials {
+  provider: Provider!
+  deaNumber: String
+  stateLicenseNumber: String
+  stateLicenseState: String
+  stateLicenseExpiry: Date
+  boardCertifications: [String]
+  malpracticeCarrier: String
+  malpracticeExpiry: Date
+  upin: String
+  taxId: String
+}
+
+"""A medical practice or organization."""
+type Practice {
+  id: ID!
+  details: PracticeDetails
+  providers: [Provider]
+  locations: [Location]
+  active: Boolean
+}
+
+"""Extended practice information."""
+type PracticeDetails {
+  practice: Practice!
+  name: String!
+  npi: String
+  taxId: String
+  phone: String
+  fax: String
+  email: String
+  website: String
+  address: Address
+  specialty: String
+  groupNpi: String
+}
+
+"""A physical or virtual care delivery location."""
+type Location {
+  id: ID!
+  name: String
+  practice: Practice
+  address: Address
+  phone: String
+  fax: String
+  type: String
+  active: Boolean
+  timezone: String
+  coordinates: Coordinates
+}
+
+# ─── Claims & Billing ─────────────────────────────────────────────────────────
+
+"""A healthcare claim submitted to a payer."""
+type Claim {
+  id: ID!
+  patient: Patient
+  encounter: Encounter
+  provider: Provider
+  practice: Practice
+  details: ClaimDetails
+  status: ClaimStatus
+  submittedAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""Extended claim details including charges and payer information."""
+type ClaimDetails {
+  claim: Claim!
+  claimNumber: String
+  payerId: String
+  payerName: String
+  totalCharge: Float
+  allowedAmount: Float
+  paidAmount: Float
+  patientResponsibility: Float
+  adjustmentAmount: Float
+  denialReason: String
+  remittanceDate: Date
+  eraNumber: String
+  diagnosisCodes: [ICD10]
+  procedureCodes: [CPT]
+}
+
+# ─── FHIR & HL7 Interoperability ─────────────────────────────────────────────
+
+"""FHIR API configuration and capability metadata."""
+type FHIR {
+  id: ID!
+  version: FHIRVersion
+  baseUrl: String
+  capabilityStatement: JSON
+  supportedResources: [String]
+  smartConfiguration: JSON
+  tokenEndpoint: String
+  authorizeEndpoint: String
+}
+
+"""A generic FHIR resource bundle entry."""
+type FHIRResource {
+  id: ID!
+  resourceType: String!
+  fhirId: String
+  profile: [String]
+  version: String
+  lastUpdated: DateTime
+  status: String
+  raw: JSON
+}
+
+"""HL7 message or segment structure used in Allscripts interface engine integrations."""
+type HL7 {
+  id: ID!
+  messageType: String
+  triggerEvent: String
+  version: String
+  sendingApplication: String
+  receivingApplication: String
+  messageControlId: String
+  processingId: String
+  timestamp: DateTime
+  segments: [String]
+  raw: String
+}
+
+"""Allscripts ConnectRx e-prescribing integration reference."""
+type ConnectRx {
+  id: ID!
+  medOrderId: ID
+  rxNumber: String
+  pharmacyNcpdpId: String
+  pharmacyName: String
+  pharmacyPhone: String
+  pharmacyAddress: Address
+  transmittedAt: DateTime
+  status: String
+  fillStatus: String
+  renewalRequest: Boolean
+  priorAuthRequired: Boolean
+}
+
+# ─── Authentication & Access ──────────────────────────────────────────────────
+
+"""An API key credential for the Veradigm developer platform."""
+type APIKey {
+  id: ID!
+  name: String
+  keyPrefix: String
+  scope: [String]
+  environment: String
+  createdAt: DateTime
+  expiresAt: DateTime
+  lastUsedAt: DateTime
+  active: Boolean
+}
+
+"""An OAuth 2.0 / SMART on FHIR access or refresh token."""
+type Token {
+  id: ID!
+  tokenType: TokenType
+  scope: [String]
+  patientId: String
+  encounterId: String
+  issuedAt: DateTime
+  expiresAt: DateTime
+  clientId: String
+  environment: String
+}
+
+"""A webhook subscription for event-driven notifications from the Veradigm platform."""
+type Webhook {
+  id: ID!
+  url: String!
+  events: [String]
+  status: WebhookStatus
+  secret: String
+  headers: [KeyValue]
+  createdAt: DateTime
+  updatedAt: DateTime
+  lastTriggeredAt: DateTime
+  retryPolicy: String
+}
+
+# ─── Shared Supporting Types ──────────────────────────────────────────────────
+
+"""A postal address."""
+type Address {
+  line1: String
+  line2: String
+  city: String
+  state: String
+  postalCode: String
+  country: String
+}
+
+"""Geographic coordinates."""
+type Coordinates {
+  latitude: Float
+  longitude: Float
+}
+
+"""A generic key-value pair for extensible metadata."""
+type KeyValue {
+  key: String!
+  value: String
+}
+
+# ─── Root Operations ──────────────────────────────────────────────────────────
+
+type Query {
+  # Patient queries
+  patient(id: ID!): Patient
+  patientByMrn(mrn: String!): Patient
+  searchPatients(name: String, dob: Date, phone: String, limit: Int): [Patient]
+  patientDetails(patientId: ID!): PatientDetails
+  patientInsurances(patientId: ID!): [PatientInsurance]
+
+  # Encounter queries
+  encounter(id: ID!): Encounter
+  encountersByPatient(patientId: ID!, startDate: Date, endDate: Date): [Encounter]
+  encounterTypes: [EncounterType]
+
+  # Clinical queries
+  diagnosesByPatient(patientId: ID!, active: Boolean): [Diagnosis]
+  allergiesByPatient(patientId: ID!): [Allergy]
+  medicationsByPatient(patientId: ID!, active: Boolean): [Medication]
+  medOrdersByPatient(patientId: ID!, status: String): [MedOrder]
+  proceduresByPatient(patientId: ID!): [Procedure]
+
+  # Lab queries
+  labOrdersByPatient(patientId: ID!, status: LabResultStatus): [LabOrder]
+  labResult(labOrderId: ID!): LabResult
+
+  # Imaging queries
+  imagingOrdersByPatient(patientId: ID!): [ImagingOrder]
+  imagingResult(imagingOrderId: ID!): ImagingResult
+
+  # Document queries
+  documentsByPatient(patientId: ID!, type: String): [Document]
+  document(id: ID!): Document
+
+  # Scheduling queries
+  appointment(id: ID!): Appointment
+  appointmentsByPatient(patientId: ID!, status: AppointmentStatusValue): [Appointment]
+  providerSchedule(providerId: ID!, date: Date): Schedule
+  availableSlots(providerId: ID!, locationId: ID, startDate: DateTime, endDate: DateTime): [SlotDetails]
+
+  # Provider and practice queries
+  provider(id: ID!): Provider
+  providerByNpi(npi: String!): Provider
+  searchProviders(name: String, specialty: String, locationId: ID): [Provider]
+  practice(id: ID!): Practice
+  location(id: ID!): Location
+  locationsByPractice(practiceId: ID!): [Location]
+
+  # Claims queries
+  claim(id: ID!): Claim
+  claimsByPatient(patientId: ID!, status: ClaimStatus): [Claim]
+
+  # Interoperability queries
+  fhirCapabilities: FHIR
+  fhirResource(resourceType: String!, id: ID!): FHIRResource
+
+  # Auth queries
+  apiKeys: [APIKey]
+  webhooks: [Webhook]
+}
+
+type Mutation {
+  # Patient mutations
+  createPatient(demographics: JSON!): Patient
+  updatePatientDemographics(patientId: ID!, demographics: JSON!): PatientDemographics
+  addPatientInsurance(patientId: ID!, insurance: JSON!): PatientInsurance
+
+  # Encounter mutations
+  createEncounter(patientId: ID!, encounter: JSON!): Encounter
+  updateEncounterStatus(encounterId: ID!, status: EncounterStatusValue!): EncounterStatus
+  closeEncounter(encounterId: ID!, details: JSON): Encounter
+
+  # Clinical mutations
+  addDiagnosis(patientId: ID!, encounterId: ID, diagnosis: JSON!): Diagnosis
+  updateDiagnosis(diagnosisId: ID!, update: JSON!): Diagnosis
+  addAllergy(patientId: ID!, allergy: JSON!): Allergy
+  updateAllergyStatus(allergyId: ID!, status: AllergyStatusValue!): AllergyStatus
+
+  # Medication mutations
+  createMedOrder(patientId: ID!, encounterId: ID, order: JSON!): MedOrder
+  cancelMedOrder(medOrderId: ID!, reason: String): MedOrder
+
+  # Procedure mutations
+  addProcedure(patientId: ID!, encounterId: ID, procedure: JSON!): Procedure
+  updateProcedureStatus(procedureId: ID!, status: ProcedureStatusValue!): ProcedureStatus
+
+  # Lab mutations
+  createLabOrder(patientId: ID!, encounterId: ID, order: JSON!): LabOrder
+  cancelLabOrder(labOrderId: ID!, reason: String): LabOrder
+
+  # Imaging mutations
+  createImagingOrder(patientId: ID!, encounterId: ID, order: JSON!): ImagingOrder
+
+  # Document mutations
+  addDocument(patientId: ID!, encounterId: ID, document: JSON!): Document
+
+  # Scheduling mutations
+  createAppointment(patientId: ID!, appointment: JSON!): Appointment
+  updateAppointmentStatus(appointmentId: ID!, status: AppointmentStatusValue!, reason: String): AppointmentStatus
+  cancelAppointment(appointmentId: ID!, reason: String): Appointment
+
+  # Webhook mutations
+  createWebhook(url: String!, events: [String]!, secret: String): Webhook
+  updateWebhook(webhookId: ID!, update: JSON!): Webhook
+  deleteWebhook(webhookId: ID!): Boolean
+}
+
+type Subscription {
+  appointmentStatusChanged(patientId: ID): AppointmentStatus
+  labResultAvailable(patientId: ID): LabResult
+  imagingResultAvailable(patientId: ID): ImagingResult
+  encounterStatusChanged(patientId: ID): EncounterStatus
+  documentAdded(patientId: ID): Document
+  webhookEvent(webhookId: ID!): JSON
+}
