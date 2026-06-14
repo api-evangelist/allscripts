@@ -1,0 +1,90 @@
+name: Veradigm FHIR API Plans
+description: Subscription tiers for the Veradigm Connect developer program providing access to FHIR and Unity APIs. Plans range from a free Open tier for exploration to Platinum Plus for enterprise partners. Monthly or annual billing (10% annual discount).
+url: https://developer.veradigm.com/Home/LearnMore
+created: "2026-06-13"
+modified: "2026-06-13"
+
+plans:
+
+  - name: Open
+    description: Free tier with click-through agreement providing access to API documentation and sandbox environments for initial exploration.
+    price: 0
+    currency: USD
+    billing_period: free
+    features:
+      - Full access to API documentation
+      - Sandbox environment access
+      - FHIR R4 API testing
+      - No upfront fees
+
+  - name: Bronze
+    description: Entry-level integrator membership for exploring API possibilities and beginning development.
+    price: null
+    currency: USD
+    billing_period: monthly
+    annual_discount: 10%
+    features:
+      - SDK and documentation access
+      - 2 API Workshop passes
+      - 1 certification
+      - Developer portal account
+
+  - name: Silver
+    description: Mid-level integrator membership for prototyping integrations with Allscripts EHR products.
+    price: null
+    currency: USD
+    billing_period: monthly
+    annual_discount: 10%
+    features:
+      - SDK and documentation access
+      - 3 API Workshop passes
+      - Introductory call with Veradigm team
+      - 1 certification
+
+  - name: Gold
+    description: Advanced integrator membership for innovating and connecting API-enabled solutions in real-world clinical settings.
+    price: null
+    currency: USD
+    billing_period: monthly
+    annual_discount: 10%
+    features:
+      - SDK and documentation access
+      - 4 API Workshop passes
+      - Introductory call with Veradigm team
+      - 2 certifications
+      - Certified App logo usage
+      - 1 App Expo product listing
+      - Client go-live support
+
+  - name: Platinum
+    description: Enterprise integrator membership with dedicated account management for scaling and deploying solutions.
+    price: null
+    currency: USD
+    billing_period: monthly
+    annual_discount: 10%
+    features:
+      - SDK and documentation access
+      - 5 API Workshop passes
+      - Introductory call with Veradigm team
+      - 3 certifications
+      - Certified App logo usage
+      - 2 App Expo product listings
+      - Client go-live support
+      - Dedicated account manager
+
+  - name: Platinum Plus
+    description: Strategic partnership tier for collaborating with Veradigm to transform health through innovation.
+    price: null
+    currency: USD
+    billing_period: monthly
+    annual_discount: 10%
+    features:
+      - SDK and documentation access
+      - 5 API Workshop passes
+      - Introductory call with Veradigm team
+      - 3 certifications
+      - Certified App logo usage
+      - 3 App Expo product listings
+      - Client go-live support
+      - Dedicated account manager
+      - Strategic partnership collaboration

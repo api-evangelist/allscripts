@@ -1,0 +1,50 @@
+name: Veradigm Unity API Plans
+description: The Unity API is available exclusively to certified Integrator members of the Veradigm Connect developer program (Gold tier and above). Access requires registration, application certification, and approval from Veradigm. The same Veradigm Connect tiers apply for Unity API access as for the FHIR API.
+url: https://developer.veradigm.com/Home/LearnMore
+created: "2026-06-13"
+modified: "2026-06-13"
+
+notes:
+  - Unity API access requires Gold or higher integrator membership
+  - Application must complete Veradigm certification process before client go-live
+  - Username and password credentials assigned by Allscripts/Veradigm during registration
+  - Sandbox environments available for testing prior to production access
+  - EULA available at https://veradigm.com/img/legal/pm/Unity-API-EULA.pdf
+
+plans:
+
+  - name: Gold (Unity API Access)
+    description: Minimum tier required for Unity API access with 1 client go-live allowed.
+    billing_period: monthly
+    annual_discount: 10%
+    features:
+      - Unity API SDK access
+      - Sandbox environment
+      - 2 certifications
+      - Client go-live support
+      - Certified App logo
+
+  - name: Platinum (Unity API Access)
+    description: Recommended enterprise tier with dedicated support for Unity API integrations.
+    billing_period: monthly
+    annual_discount: 10%
+    features:
+      - Unity API SDK access
+      - Sandbox environment
+      - 3 certifications
+      - Client go-live support
+      - Dedicated account manager
+      - 2 App Expo product listings
+
+  - name: Platinum Plus (Unity API Access)
+    description: Strategic partner tier for deep Unity API integration at scale.
+    billing_period: monthly
+    annual_discount: 10%
+    features:
+      - Unity API SDK access
+      - Sandbox environment
+      - 3 certifications
+      - Client go-live support
+      - Dedicated account manager
+      - 3 App Expo product listings
+      - Strategic collaboration

@@ -1,0 +1,27 @@
+name: Veradigm Unity API Rate Limits
+description: The Veradigm Unity API does not publish explicit numerical rate limits in public documentation. Rate limits and throttling policies are defined during the application registration and certification process. Production access requires credentials (username/password) assigned by Veradigm during registration.
+url: https://developer.allscripts.com/
+created: "2026-06-13"
+modified: "2026-06-13"
+
+notes:
+  - Explicit numerical rate limits are not publicly documented
+  - Credentials assigned by Veradigm during application registration
+  - Unity API uses action-based dispatch model (Magic endpoint)
+  - Supports JSON and SOAP request formats
+  - Sandbox environments available for testing
+  - Cloud-hosted environments may have different constraints than on-premise deployments
+
+authentication:
+  type: Username/Password
+  mechanism: Credentials issued by Veradigm during registration
+  formats:
+    - REST/JSON
+    - SOAP/XML
+
+endpoint_reference:
+  url: http://remotecentral.allscripts.com/UnityAPIReference
+  description: Detailed technical documentation for Unity API endpoints
+
+eula:
+  url: https://veradigm.com/img/legal/pm/Unity-API-EULA.pdf

@@ -1,0 +1,30 @@
+name: Veradigm FHIR API Rate Limits
+description: Veradigm does not publish explicit numerical rate limits for the FHIR R4 API in public documentation. Access is gated by OAuth 2.0 token lifecycle and plan tier. Rate limit policies are typically communicated during the integration certification process. Sandbox and production environments may have different constraints.
+url: https://developer.veradigm.com/Fhir/Introduction
+created: "2026-06-13"
+modified: "2026-06-13"
+
+notes:
+  - Explicit rate limits are not publicly documented
+  - OAuth 2.0 bearer tokens must be included in all API requests
+  - Token expiration and refresh governed by SMART on FHIR framework
+  - Bulk data access available for large dataset retrieval (see Bulk Data documentation)
+  - Sandbox environments may impose additional constraints vs production
+  - Contact VeradigmConnect@veradigm.com for production rate limit details
+
+authentication:
+  type: OAuth 2.0
+  framework: SMART on FHIR Application Launch Framework 2.0
+  flows:
+    - Provider/Product User Launch
+    - Patient Launch
+    - SMART EHR-initiated Launch
+
+token_details:
+  format: Bearer token
+  header: Authorization
+  refresh: Supported via OAuth 2.0 refresh token flow
+
+data_formats:
+  - application/fhir+json
+  - application/fhir+xml

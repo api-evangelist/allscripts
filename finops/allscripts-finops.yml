@@ -1,0 +1,64 @@
+name: Allscripts / Veradigm API FinOps
+description: Financial operations considerations for integrating with Veradigm (formerly Allscripts) APIs. The developer program uses a tiered subscription model. Pricing for paid tiers is not publicly listed and must be obtained through Veradigm Connect. A free Open tier is available for initial development.
+url: https://developer.veradigm.com/Home/LearnMore
+created: "2026-06-13"
+modified: "2026-06-13"
+
+cost_model:
+  type: Subscription tiered
+  billing_periods:
+    - monthly
+    - annually (10% discount)
+  free_tier: true
+  free_tier_name: Open
+  free_tier_description: Click-through agreement, full documentation access, sandbox access, no upfront fees
+
+pricing_transparency:
+  public: false
+  notes: Paid tier pricing not listed publicly; contact Veradigm Connect for pricing
+
+tiers:
+  - name: Open
+    cost: Free
+    use_case: Exploration and initial sandbox testing
+  - name: Bronze
+    cost: Contact Veradigm
+    use_case: Early development
+  - name: Silver
+    cost: Contact Veradigm
+    use_case: Prototyping integrations
+  - name: Gold
+    cost: Contact Veradigm
+    use_case: Production clinical integrations, requires certification
+  - name: Platinum
+    cost: Contact Veradigm
+    use_case: Scaling solutions with dedicated account management
+  - name: Platinum Plus
+    cost: Contact Veradigm
+    use_case: Strategic partnership with Veradigm
+
+cost_drivers:
+  - Integrator membership tier
+  - Number of certified applications
+  - Number of client go-live deployments
+  - App Expo product listings
+  - Number of API Workshop passes
+
+hidden_costs:
+  - Certification process time and resources
+  - Unity API EULA compliance costs
+  - ONC regulatory compliance overhead
+  - Client go-live support and testing
+
+contacts:
+  - name: Veradigm Connect
+    email: VeradigmConnect@veradigm.com
+    url: https://developer.veradigm.com/
+
+references:
+  - type: Plans
+    url: https://developer.veradigm.com/Home/LearnMore
+  - type: AppExpo
+    url: https://expo.veradigm.com/apps
+  - type: Legal
+    url: https://veradigm.com/legal/
