@@ -3,13 +3,16 @@
   "feeds": [
     {
       "source": "https://veradigm.com/blog/",
-      "feed_url": "https://veradigm.com/blog/",
-      "title": "Veradigm Blog",
+      "error": "HTTPError"
+    },
+    {
+      "source": "https://veradigm.com/legal/onc-reg-compliance/",
+      "feed_url": "https://veradigm.com/legal/onc-reg-compliance/",
+      "title": "",
       "saved": 0,
-      "method": "html",
-      "note": "403 Forbidden — blog feed inaccessible without authentication"
+      "method": "none"
     }
   ],
   "post_count": 0,
-  "fetched": "2026-06-13T00:00:00Z"
+  "fetched": "2026-06-14T20:42:17Z"
 }
