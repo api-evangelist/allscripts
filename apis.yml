@@ -5,7 +5,7 @@ description: Allscripts, now operating as Veradigm, is a healthcare IT company p
   Developer Program) offers FHIR R4 APIs covering 28 clinical resources as well as
   a Unity API for clinical, scheduling, demographic, and practice management functions
   across Allscripts EHR products.
-image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/allscripts/refs/heads/main/apis.yml
 version: '0.19'
 created: '2026-06-13'
@@ -25,7 +25,7 @@ apis:
     Authentication uses OAuth 2.0 with SMART on FHIR Application Launch Framework
     2.0. Endpoints are available for both patient-facing (ending in /open) and provider-facing
     (ending in /fhir) applications.
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://developer.veradigm.com/Fhir/Introduction
   baseURL: https://open.platform.veradigm.com
   tags:
@@ -67,7 +67,7 @@ apis:
     with an action-based dispatch model. The Unity API is available to certified Integrator
     members and provides read-write access to cloud-hosted Allscripts solutions for
     building custom healthcare integrations.
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://developer.allscripts.com/
   baseURL: https://remotecentral.allscripts.com
   tags:
@@ -100,7 +100,7 @@ apis:
     Veradigm Paragon acute care EHR platform. It enables third-party applications
     to integrate with Paragon to access patient clinical data, supporting interoperability
     requirements for hospital and acute care settings.
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://developer.veradigm.com/Content/fhir/paragon/ParagonOpenAPI_Index.html
   baseURL: https://open.platform.veradigm.com
   tags:
