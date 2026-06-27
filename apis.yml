@@ -132,7 +132,7 @@ common:
   url: https://developer.allscripts.com/
 - type: AppExpo
   url: https://expo.veradigm.com/apps
-- type: SignUp
+- type: Signup
   url: https://developer.veradigm.com/Content/fhir/content/Developer_Signup/
 - type: Plans
   url: https://developer.veradigm.com/Home/LearnMore
