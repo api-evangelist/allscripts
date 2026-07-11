@@ -126,6 +126,8 @@ apis:
     email: VeradigmConnect@veradigm.com
     url: https://developer.veradigm.com/
 common:
+- type: DomainSecurity
+  url: security/allscripts-domain-security.yml
 - type: DeveloperPortal
   url: https://developer.veradigm.com/
 - type: DeveloperPortalLegacy

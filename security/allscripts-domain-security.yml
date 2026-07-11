@@ -1,0 +1,30 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: developer.veradigm.com
+  https: true
+  tls_version: TLSv1.2
+  cert_expires: Sep  3 12:50:11 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: open.platform.veradigm.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Jul 21 17:05:14 2026 GMT
+  hsts: null
+- host: developer.allscripts.com
+  https: false
+domains:
+- domain: veradigm.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
+- domain: allscripts.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: none
