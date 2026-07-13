@@ -2,11 +2,13 @@
   "repo": "allscripts",
   "feeds": [
     {
-      "source": "https://veradigm.com/blog/",
+      "source": "https://veradigm.com/legal/onc-reg-compliance/",
+      "feed_url": "https://veradigm.com/legal/onc-reg-compliance/",
+      "title": "",
       "saved": 0,
-      "error": "HTTP 403 Forbidden"
+      "method": "none"
     }
   ],
   "post_count": 0,
-  "fetched": "2026-06-27T12:21:56Z"
+  "fetched": "2026-07-11T11:50:51Z"
 }
