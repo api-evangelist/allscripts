@@ -1,0 +1,139 @@
+generated: '2026-08-14'
+method: probed
+source: https://fhir.fhirpoint.open.allscripts.com/fhirroute/fhir/CP00101/.well-known/smart-configuration
+docs: https://developer.veradigm.com/Fhir/SMARTonFHIR
+description: >-
+  SMART on FHIR OAuth 2.0 scopes for the Veradigm FHIR R4 API. Derived directly from the live
+  SMART App Launch discovery document served by a Veradigm Connect sandbox tenant (CP00101),
+  fetched unauthenticated on 2026-08-14 (HTTP 200, application/json, 238 scopes). This is a real,
+  Veradigm-published document, not a spec-derived guess: `issuer` is
+  https://fhirecho.fhirpoint.open.allscripts.com/pro/authorization and the raw scopes list is
+  saved verbatim at well-known/allscripts-smart-configuration.json. No OpenAPI/Swagger document
+  exists for this API (see conformance/allscripts-conformance.yml), so this is the strongest
+  available evidence of the real permission surface.
+scope_count: 238
+raw_source_file: well-known/allscripts-smart-configuration.json
+
+scheme:
+  standard: SMART App Launch 2.0 / HL7 FHIR scope syntax
+  contexts:
+  - patient   # data scoped to the patient in the launch context
+  - user      # data the launching user (provider) can access
+  - system    # backend/system caller, no launch context (bulk data, server-to-server)
+  suffixes:
+    "*": full CRUDS access to the resource type
+    read: read-only, single-resource GET
+    rs: read + search-type (the dominant grant across resources)
+    "rs?category=...": category-filtered read+search, used to scope Condition/Observation to a
+      specific US Core category (e.g. laboratory, vital-signs, sdoh, problem-list-item)
+
+resource_scopes:
+  count: 34
+  resources:
+  - "*"
+  - AllergyIntolerance
+  - Binary
+  - CarePlan
+  - CareTeam
+  - Condition
+  - Coverage
+  - Device
+  - DiagnosticOrder
+  - DiagnosticReport
+  - DocumentReference
+  - Encounter
+  - Goal
+  - Group
+  - Immunization
+  - Location
+  - Medication
+  - MedicationAdministration
+  - MedicationDispense
+  - MedicationOrder
+  - MedicationRequest
+  - MedicationStatement
+  - Observation
+  - Organization
+  - Patient
+  - Practitioner
+  - PractitionerRole
+  - Procedure
+  - Provenance
+  - Questionnaire
+  - QuestionnaireResponse
+  - RelatedPerson
+  - ServiceRequest
+  - Specimen
+  note: >-
+    DiagnosticOrder and MedicationOrder appear in scopes_supported as legacy DSTU2-era resource
+    names alongside their R4 successors (ServiceRequest, MedicationRequest) — both scope families
+    are still advertised even though the CapabilityStatement (R4) only declares the current
+    resource types. Veradigm stopped supporting DSTU2 on 2026-06-01 (see lifecycle/).
+
+category_filtered_scopes:
+- resource: Condition
+  categories:
+  - http://hl7.org/fhir/us/core/CodeSystem/condition-category|health-concern
+  - http://terminology.hl7.org/CodeSystem/condition-category|encounter-diagnosis
+  - http://terminology.hl7.org/CodeSystem/condition-category|problem-list-item
+- resource: Observation
+  categories:
+  - http://terminology.hl7.org/CodeSystem/observation-category|laboratory
+  - http://terminology.hl7.org/CodeSystem/observation-category|social-history
+  - http://terminology.hl7.org/CodeSystem/observation-category|survey
+  - http://terminology.hl7.org/CodeSystem/observation-category|vital-signs
+- resource: Condition
+  category_system: http://hl7.org/fhir/us/core/CodeSystem/us-core-category
+  code: sdoh
+
+launch_and_identity_scopes:
+- launch
+- launch/patient
+- openid
+- fhirUser
+- profile
+- offline_access
+- online_access
+- fhir
+
+oauth_endpoints:
+  authorization_endpoint: https://fhir.fhirpoint.open.allscripts.com/fhirroute/authorizationV2/CP00101/connect/authorize
+  token_endpoint: https://fhir.fhirpoint.open.allscripts.com/fhirroute/authorizationV2/CP00101/connect/token
+  jwks_uri: https://fhirecho.fhirpoint.open.allscripts.com/pro/authorization/.well-known/openid-configuration/jwks
+  issuer: https://fhirecho.fhirpoint.open.allscripts.com/pro/authorization
+  note: >-
+    These are the sandbox tenant CP00101's endpoints. Each production client organization gets its
+    own tenant-specific authorize/token URLs, resolved via the Veradigm Endpoint Directory
+    (https://developer.veradigm.com/Fhir/EndpointDirectory) rather than one fixed host.
+
+grant_types_supported:
+- authorization_code
+- client_credentials
+- refresh_token
+
+capabilities_supported:
+- launch-ehr
+- launch-standalone
+- client-public
+- client-confidential-symmetric
+- client-confidential-asymmetric
+- context-ehr-patient
+- context-ehr-encounter
+- context-standalone-patient
+- context-standalone-encounter
+- context-passthrough-banner
+- context-passthrough-style
+- context-banner
+- context-style
+- sso-openid-connect
+- permission-offline
+- permission-patient
+- permission-user
+- authorize-post
+- permission-v1
+- permission-v2
+
+cross_links:
+  authentication: authentication/allscripts-authentication.yml
+  conformance: conformance/allscripts-conformance.yml
+  conventions: conventions/allscripts-conventions.yml

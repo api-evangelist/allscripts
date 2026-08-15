@@ -21,7 +21,7 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/allscripts
 url: https://raw.githubusercontent.com/api-evangelist/allscripts/refs/heads/main/apis.yml
 version: '0.19'
 created: '2026-06-13'
-modified: '2026-06-13'
+modified: '2026-08-14'
 tags:
 - Healthcare IT
 - EHR
@@ -50,14 +50,20 @@ apis:
   properties:
   - type: Documentation
     url: https://developer.veradigm.com/Fhir/Introduction
-  - type: OpenAPI
+  - type: GettingStarted
     url: https://developer.veradigm.com/Content/fhir/GetStarted/Concepts/Considerations.html
   - type: Sandbox
-    url: https://developer.veradigm.com/Fhir/FHIR_Sandboxes
+    url: sandbox/allscripts-sandbox.yml
   - type: EndpointDirectory
     url: https://developer.veradigm.com/Fhir/EndpointDirectory
   - type: Authentication
-    url: https://developer.veradigm.com/Fhir/SMARTonFHIR
+    url: authentication/allscripts-authentication.yml
+  - type: OAuthScopes
+    url: scopes/allscripts-scopes.yml
+  - type: CapabilityStatement
+    url: conformance/allscripts-fhir-r4-capabilitystatement.json
+  - type: Conformance
+    url: conformance/allscripts-conformance.yml
   - type: Resources
     url: https://developer.veradigm.com/Fhir/Resources
   - type: Plans
@@ -140,6 +146,38 @@ apis:
 common:
 - type: DomainSecurity
   url: security/allscripts-domain-security.yml
+- type: Authentication
+  url: authentication/allscripts-authentication.yml
+- type: OAuthScopes
+  url: scopes/allscripts-scopes.yml
+- type: CapabilityStatement
+  url: conformance/allscripts-fhir-r4-capabilitystatement.json
+- type: Conformance
+  url: conformance/allscripts-conformance.yml
+- type: WellKnown
+  url: well-known/allscripts-well-known.yml
+- type: Packages
+  url: packages/allscripts-packages.yml
+- type: MCPServer
+  url: mcp/allscripts-mcp.yml
+- type: LLMsTxt
+  url: llms/allscripts-llms.txt
+- type: ErrorCatalog
+  url: errors/allscripts-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/allscripts-lifecycle.yml
+- type: Deprecation
+  url: lifecycle/allscripts-lifecycle.yml
+- type: Conventions
+  url: conventions/allscripts-conventions.yml
+- type: DataModel
+  url: data-model/allscripts-data-model.yml
+- type: Sandbox
+  url: sandbox/allscripts-sandbox.yml
+- type: AgentSkill
+  url: skills/allscripts-fhir-patient-summary.md
+- type: GitHubOrganization
+  url: https://github.com/veradigm
 - type: DeveloperPortal
   url: https://developer.veradigm.com/
 - type: DeveloperPortalLegacy
@@ -170,3 +208,8 @@ maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
   url: https://apievangelist.com
+x-enrichment:
+  date: '2026-08-14'
+  status: enriched
+  artifacts_added: 16
+  pass: local-v1

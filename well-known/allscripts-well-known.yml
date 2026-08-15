@@ -1,0 +1,132 @@
+generated: '2026-08-14'
+method: probed
+source: live HTTP probes of every apis.yml baseURL host, the FHIR sandbox tenant host discovered
+  via developer docs, and the docs/portal hosts
+description: >-
+  Probe of the standard /.well-known/ surface plus adjacent machine-readable-contract paths across
+  every Allscripts/Veradigm host in play. The root /.well-known/ paths return nothing real on the
+  production API host or the marketing domains. developer.veradigm.com answers HTTP 200 with the
+  SAME HTML shell for every unknown path (a soft-404 ASP.NET catch-all — confirmed by hashing
+  /openapi.json against a random nonexistent path and finding identical content besides a
+  per-request nonce), so none of its 200s are real documents. The one real, machine-readable
+  well-known document found anywhere is the SMART App Launch configuration published UNDER the
+  FHIR tenant path (not at a host root) on the sandbox FHIR host discovered from
+  developer.veradigm.com/Fhir/FHIR_Sandboxes.
+hosts:
+- host: open.platform.veradigm.com
+  role: production FHIR/Paragon API baseURL (per apis.yml)
+- host: fhir.fhirpoint.open.allscripts.com
+  role: Veradigm Connect sandbox tenant (CP00101) — linked from Fhir/FHIR_Sandboxes docs page
+- host: tw-fhir-r4.open.allscripts.com
+  role: second documented sandbox host (Fhir/FHIR_Sandboxes) — connection timed out on every probe
+    this round, unreachable
+- host: developer.veradigm.com
+  role: developer documentation portal (ASP.NET, soft-404 catch-all on unknown paths)
+- host: developer.allscripts.com
+  role: legacy Unity API developer portal — connection timed out on every probe this round
+- host: remotecentral.allscripts.com
+  role: Unity API baseURL (per apis.yml) — 301 redirects to
+    open-uny-licensev2.platform.veradigm.com, which itself 403s at root and 404s on every probe path
+- host: veradigm.com / www.veradigm.com / allscripts.com
+  role: corporate marketing sites — 403/301, Cloudflare-fronted
+
+probes:
+- url: https://open.platform.veradigm.com/.well-known/security.txt
+  host: open.platform.veradigm.com
+  status: 404
+  real_document: false
+- url: https://open.platform.veradigm.com/.well-known/openid-configuration
+  host: open.platform.veradigm.com
+  status: 404
+  real_document: false
+- url: https://open.platform.veradigm.com/.well-known/oauth-authorization-server
+  host: open.platform.veradigm.com
+  status: 404
+  real_document: false
+- url: https://open.platform.veradigm.com/.well-known/ai-plugin.json
+  host: open.platform.veradigm.com
+  status: 404
+  real_document: false
+- url: https://open.platform.veradigm.com/.well-known/agent-card.json
+  host: open.platform.veradigm.com
+  status: 404
+  real_document: false
+- url: https://developer.veradigm.com/.well-known/security.txt
+  host: developer.veradigm.com
+  status: 200
+  content_type: text/html
+  real_document: false
+  note: soft-404 catch-all HTML shell, not a security.txt document
+- url: https://developer.veradigm.com/.well-known/openid-configuration
+  host: developer.veradigm.com
+  status: 200
+  content_type: text/html
+  real_document: false
+  note: soft-404 catch-all
+- url: https://developer.veradigm.com/.well-known/oauth-authorization-server
+  host: developer.veradigm.com
+  status: 200
+  content_type: text/html
+  real_document: false
+  note: soft-404 catch-all
+- url: https://developer.veradigm.com/.well-known/agent-card.json
+  host: developer.veradigm.com
+  status: 200
+  content_type: text/html
+  real_document: false
+  note: soft-404 catch-all
+- url: https://developer.veradigm.com/.well-known/agent.json
+  host: developer.veradigm.com
+  status: 200
+  content_type: text/html
+  real_document: false
+  note: soft-404 catch-all
+- url: https://developer.veradigm.com/.well-known/api-catalog
+  host: developer.veradigm.com
+  status: 200
+  content_type: text/html
+  real_document: false
+  note: soft-404 catch-all
+- url: https://fhir.fhirpoint.open.allscripts.com/fhirroute/fhir/CP00101/.well-known/smart-configuration
+  host: fhir.fhirpoint.open.allscripts.com
+  status: 200
+  content_type: application/json; charset=utf-8
+  real_document: true
+  file: allscripts-smart-configuration.json
+  note: >-
+    SMART App Launch 2.0 configuration for sandbox tenant CP00101. Real JSON object with
+    authorization_endpoint, token_endpoint, jwks_uri, issuer
+    (https://fhirecho.fhirpoint.open.allscripts.com/pro/authorization), 20 capabilities and a
+    238-entry scopes_supported array.
+- url: https://fhir.fhirpoint.open.allscripts.com/.well-known/security.txt
+  host: fhir.fhirpoint.open.allscripts.com
+  status: 404
+  real_document: false
+- url: https://fhir.fhirpoint.open.allscripts.com/.well-known/openid-configuration
+  host: fhir.fhirpoint.open.allscripts.com
+  status: 404
+  real_document: false
+- url: https://fhir.fhirpoint.open.allscripts.com/.well-known/agent-card.json
+  host: fhir.fhirpoint.open.allscripts.com
+  status: 404
+  real_document: false
+- url: https://veradigm.com/.well-known/security.txt
+  host: veradigm.com
+  status: 403
+  real_document: false
+  note: Cloudflare/WAF challenge page, not a real document
+- url: https://allscripts.com/.well-known/security.txt
+  host: allscripts.com
+  status: 301
+  real_document: false
+  note: redirects to veradigm.com root
+
+well_known_pointer_earned: true
+note: >-
+  Exactly one real well-known document exists across the entire probed surface: the
+  /.well-known/smart-configuration served by the FHIR sandbox tenant (real JSON, HTTP 200). It
+  lives under a tenant-specific FHIR path rather than a bare host root, matching how athenahealth's
+  equivalent SMART configuration is also published under /fhir/r4/.well-known/ rather than at
+  root — the pointer is earned on the strength of that one genuine hit, per the same precedent.
+  Every other /.well-known/ probe on every other host is either an honest 404 or a soft-404 HTML
+  shell, and is recorded above as such rather than credited.

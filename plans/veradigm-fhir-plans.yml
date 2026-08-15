@@ -1,8 +1,10 @@
 name: Veradigm FHIR API Plans
+method: searched
+generated: "2026-06-13"
 description: Subscription tiers for the Veradigm Connect developer program providing access to FHIR and Unity APIs. Plans range from a free Open tier for exploration to Platinum Plus for enterprise partners. Monthly or annual billing (10% annual discount).
 url: https://developer.veradigm.com/Home/LearnMore
 created: "2026-06-13"
-modified: "2026-06-13"
+modified: "2026-08-14"
 
 plans:
 

@@ -1,0 +1,60 @@
+generated: '2026-08-14'
+method: searched
+source: registry.npmjs.org + pypi.org + azuresearch-usnc.nuget.org (NuGet) + api.github.com search,
+  probed 2026-08-14
+package_count: 0
+official_package_count: 0
+summary: >-
+  Veradigm/Allscripts publishes NO first-party client libraries or SDKs in any package registry.
+  Direct-name lookups on npm (veradigm, allscripts, veradigm-fhir, veradigm-sdk, allscripts-unity,
+  veradigm-connect) and PyPI (veradigm, allscripts, veradigm-fhir) all 404'd. A full-text npm
+  search for "veradigm" returned zero results; a full-text search for "allscripts" returned only
+  unaffiliated third-party packages (see false_positives). NuGet's search API returned zero hits
+  for "veradigm". A GitHub repository-name search for "veradigm" returned only unaffiliated
+  individual/personal repos (see github_search), none under a Veradigm- or Allscripts-owned
+  organization. This is consistent with the rest of the profile: Veradigm ships a certified-partner
+  developer program (app registration + client licensing) rather than an open SDK distribution
+  model.
+packages: []
+registries_searched:
+- {registry: npm, query: 'full-text "veradigm"; direct lookups veradigm, veradigm-fhir, veradigm-sdk, veradigm-connect',
+   first_party_hits: 0, status: 'full-text 0 results; direct lookups 404'}
+- {registry: npm, query: 'full-text "allscripts"; direct lookups allscripts, allscripts-unity',
+   first_party_hits: 0, status: 'full-text returned 3 unaffiliated packages; direct lookups 404'}
+- {registry: pypi, query: 'veradigm, allscripts, veradigm-fhir', first_party_hits: 0, status: '404 on every direct lookup'}
+- {registry: nuget, query: 'veradigm', first_party_hits: 0, status: 'azuresearch-usnc.nuget.org returned empty data[]'}
+- {registry: github, query: 'veradigm in:name (repository search)', first_party_hits: 0,
+   status: 'results are all unaffiliated personal/student repos, none under a Veradigm or Allscripts GitHub org'}
+- {registry: maven-central, query: not searched, reason: no JVM SDK surface indicated anywhere in the docs}
+- {registry: rubygems, query: not searched, reason: no Ruby SDK surface indicated anywhere in the docs}
+- {registry: crates.io, query: not searched, reason: no Rust SDK surface indicated anywhere in the docs}
+- {registry: pkg.go.dev, query: not searched, reason: no Go SDK surface indicated anywhere in the docs}
+false_positives:
+- name: '@browser-automation-hub/allscripts-ehr-browser-automation'
+  registry: npm
+  official: false
+  reason: Third-party browser-automation tooling for the Allscripts EHR UI, not a Veradigm-published
+    API client.
+- name: '@nirmiteeio/fhir-sdk'
+  registry: npm
+  official: false
+  reason: Generic third-party FHIR client library, not Veradigm-specific or Veradigm-published.
+github_search:
+  query: 'veradigm in:name'
+  results_sample:
+  - brandonwng/veradigm
+  - ryanh6900/VeradigmTakeHomeTest
+  - Tabula-medica/veradigm-jwks
+  - roseglavin/Veradigmexercise
+  - swsarancodes/VERADIGM-API
+  note: These are personal take-home-test/exercise repos referencing the public Veradigm sandbox,
+    not first-party Veradigm code.
+x-evidence:
+  fetched: '2026-08-14'
+  probes:
+  - {url: 'https://registry.npmjs.org/veradigm', http_status: 404}
+  - {url: 'https://registry.npmjs.org/allscripts', http_status: 404}
+  - {url: 'https://registry.npmjs.org/-/v1/search?text=veradigm', http_status: 200, result_count: 0}
+  - {url: 'https://pypi.org/pypi/veradigm/json', http_status: 404}
+  - {url: 'https://pypi.org/pypi/allscripts/json', http_status: 404}
+  - {url: 'https://azuresearch-usnc.nuget.org/query?q=veradigm', http_status: 200, result_count: 0}

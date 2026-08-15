@@ -1,0 +1,68 @@
+# Veradigm (Allscripts)
+
+> Veradigm, formerly Allscripts, is a healthcare IT company providing REST and FHIR APIs for EHR
+> data exchange, clinical workflows, patient portal, and practice management integrations. The
+> Veradigm Developer Program offers a FHIR R4 API covering 31 clinical resource types and a Unity
+> API for clinical, scheduling, demographic, and practice management functions across Allscripts
+> EHR product lines.
+
+No official llms.txt is published by Veradigm — this file is generated from the API Evangelist
+profile of this provider (searched + probed 2026-08-14) for agent consumption.
+
+## APIs
+
+- [Veradigm FHIR R4 API](https://developer.veradigm.com/Fhir/Introduction): RESTful HL7 FHIR R4
+  access to 31 clinical/demographic resource types (Patient, Condition, Observation,
+  MedicationRequest, Encounter, AllergyIntolerance, Immunization, CarePlan, DiagnosticReport,
+  DocumentReference, Coverage, and more). OAuth 2.0 with SMART on FHIR Application Launch
+  Framework 2.0. Base: https://open.platform.veradigm.com
+- [Veradigm Unity API](https://developer.allscripts.com/): action-based dispatch REST/SOAP API for
+  clinical, scheduling, demographic, and practice management functions across Allscripts EHR
+  products (TouchWorks, Professional EHR, acute care). Certified Integrator members only. Base:
+  https://remotecentral.allscripts.com
+- [Veradigm Paragon Open API](https://developer.veradigm.com/Content/fhir/paragon/ParagonOpenAPI_Index.html):
+  FHIR-compliant access to the Paragon acute-care EHR platform.
+
+## Machine-readable contracts
+
+- Live FHIR CapabilityStatement (the closest thing to an OpenAPI document this provider
+  publishes): conformance/allscripts-fhir-r4-capabilitystatement.json — fetched from a Veradigm
+  Connect sandbox tenant, HTTP 200, application/json+fhir.
+- SMART App Launch discovery document (238 OAuth scopes, endpoints, capabilities):
+  well-known/allscripts-smart-configuration.json
+- No OpenAPI/Swagger, GraphQL, MCP server, or A2A Agent Card is published by this provider as of
+  2026-08-14.
+
+## Authentication
+
+SMART on FHIR (HL7 SMART App Launch 2.0): standalone launch, EHR launch, and Backend Services
+(system/JWT client-assertion) flows. OAuth 2.0 grant types: authorization_code,
+client_credentials, refresh_token. See authentication/allscripts-authentication.yml and
+scopes/allscripts-scopes.yml.
+
+## Standards conformance
+
+HL7 FHIR R4 (4.0.1), US Core STU3 3.1.1, SMART App Launch 2.0, HL7 Bulk Data Access (Flat FHIR),
+OAuth 2.0, OpenID Connect. See conformance/allscripts-conformance.yml.
+
+## Lifecycle
+
+DSTU2 unsupported since 2025-06-01 (endpoint not removed, no technical support). R4 is current.
+See lifecycle/allscripts-lifecycle.yml.
+
+## Developer resources
+
+- Developer Portal: https://developer.veradigm.com/
+- Legacy Unity Developer Portal: https://developer.allscripts.com/ (unreachable in 2026-08-14
+  probes)
+- Sandboxes: https://developer.veradigm.com/Fhir/FHIR_Sandboxes
+- Endpoint Directory: https://developer.veradigm.com/Fhir/EndpointDirectory
+- App Expo (partner marketplace): https://expo.veradigm.com/apps
+- Sign up: https://developer.veradigm.com/Content/fhir/content/Developer_Signup/
+
+## Optional
+
+- [Bulk Data docs](https://developer.veradigm.com/Fhir/BulkData): async Group/system-level export,
+  System app type + JWKS auth only, 29 supported resource types.
+- [Pricing / plans](https://developer.veradigm.com/Home/LearnMore): tiered Integrator membership
+  (Open/Bronze/Silver/Gold/Platinum/Platinum Plus), pricing not publicly listed.

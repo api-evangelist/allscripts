@@ -1,0 +1,50 @@
+generated: '2026-08-14'
+method: searched
+source: https://developer.veradigm.com/Fhir/Searching (Error Handling in Searches section)
+description: >-
+  Error catalog for the Veradigm FHIR R4 API. Veradigm does not use an RFC 9457
+  application/problem+json envelope; the documented error surface is plain HTTP status codes for
+  non-200 responses, layered on top of the FHIR OperationOutcome resource (the standard FHIR error
+  body, modeled in json-ld/allscripts-context.jsonld and the prior-round GraphQL schema).
+format: fhir-operation-outcome
+envelope_note: >-
+  FHIR responses that fail return a Bundle/OperationOutcome resource (resourceType
+  "OperationOutcome", an `issue[]` array of {severity, code, diagnostics}) rather than a
+  problem+json body. This is the HL7 FHIR R4 standard error shape, not a Veradigm-specific one.
+
+problem_types:
+- status: 401
+  title: Unauthorized
+  meaning: Missing or invalid OAuth 2.0 bearer token.
+  source: https://developer.veradigm.com/Fhir/Searching
+- status: 403
+  title: Forbidden
+  meaning: Token is valid but does not carry the scope/permission required for the requested
+    resource or operation.
+  source: https://developer.veradigm.com/Fhir/Searching
+- status: 404
+  title: Not found
+  meaning: Resource, resource type, or search endpoint does not exist.
+  source: https://developer.veradigm.com/Fhir/Searching
+- status: 413
+  title: Request too large
+  meaning: Search request payload/result set exceeds Veradigm's size limit.
+  source: https://developer.veradigm.com/Fhir/Searching
+
+redacted_data_behavior:
+  description: >-
+    Veradigm's Clinical Authorization Service can return data explicitly marked "redacted" (rather
+    than omitting it or returning a 403) when the requesting party is not authorized to view a
+    specific record, so the caller's workflow still knows relevant data exists — a patient-safety
+    design choice documented directly by Veradigm.
+  source: https://developer.veradigm.com/Fhir/Searching
+
+not_documented:
+  - Numeric application error codes / vendor-specific error taxonomy beyond the four HTTP statuses
+    above
+  - Rate-limit exhaustion status code (see rate-limits/veradigm-fhir-rate-limits.yml — no numeric
+    limits are published)
+
+cross_links:
+  conformance: conformance/allscripts-conformance.yml
+  conventions: conventions/allscripts-conventions.yml

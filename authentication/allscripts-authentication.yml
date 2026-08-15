@@ -1,0 +1,116 @@
+generated: '2026-08-14'
+method: searched
+docs:
+- https://developer.veradigm.com/Fhir/SMARTonFHIR
+- https://developer.veradigm.com/Fhir/ProcessOverview
+source: >-
+  https://developer.veradigm.com/Fhir/SMARTonFHIR, https://developer.veradigm.com/Fhir/ProcessOverview,
+  plus the live CapabilityStatement (conformance/allscripts-fhir-r4-capabilitystatement.json) and
+  SMART configuration (well-known/allscripts-smart-configuration.json) fetched from a Veradigm
+  Connect sandbox tenant on 2026-08-14.
+description: >-
+  Authentication profile for the Veradigm FHIR R4 API. The API supports SMART on FHIR (HL7 SMART
+  App Launch) OAuth 2.0. Veradigm's own docs describe three distinct authentication paths, and the
+  live smart-configuration document confirms three OAuth grant types and both public and
+  confidential (symmetric + asymmetric/JWT) client types.
+
+security_schemes:
+- name: SMART on FHIR (standalone launch)
+  type: oauth2
+  flow: authorizationCode
+  used_by: patient-facing and provider-facing apps launched outside an EHR session
+  authorization_url: "<tenant-specific — see EndpointDirectory>"
+  token_url: "<tenant-specific — see EndpointDirectory>"
+  example_sandbox:
+    authorization_endpoint: https://fhir.fhirpoint.open.allscripts.com/fhirroute/authorizationV2/CP00101/connect/authorize
+    token_endpoint: https://fhir.fhirpoint.open.allscripts.com/fhirroute/authorizationV2/CP00101/connect/token
+  notes: >-
+    Application user selects a healthcare organization, then authenticates with EHR credentials
+    (provider apps) or patient-portal credentials such as FollowMyHealth/AHC (patient apps). A
+    provider app may need to prompt for a patient selection when the patient is not embedded in
+    the token response.
+- name: SMART on FHIR (EHR launch)
+  type: oauth2
+  flow: authorizationCode
+  used_by: apps launched from inside the Veradigm EHR UI (Veradigm Connect Integrator tier or above)
+  notes: >-
+    The EHR passes `iss` (FHIR endpoint URL) and `launch` (temporary launch authorization code) to
+    the app per the HL7 SMART EHR-launch sequence.
+- name: SMART on FHIR Backend Services (system callers)
+  type: oauth2
+  flow: clientCredentials
+  auth_method: private_key_jwt (JWT client assertion, asymmetric)
+  used_by: server-to-server / System app type — e.g. an insurance company polling appointments for
+    prior authorization, or bulk-data extraction jobs
+  notes: >-
+    Requires backend authentication via a JWKS endpoint; Veradigm processes certificate/key
+    rotation. Client presents a `client_assertion` (JWT signed with a CA-signed private key) plus
+    `client_assertion_type: urn:ietf:params:oauth:client-assertion-type:jwt-bearer`. Only System
+    app types may request bulk data.
+- name: User/provider auth
+  type: http
+  scheme: EHR application credentials (via OAuth 2.0 authorization_code)
+  used_by: human provider users
+- name: Patient portal auth
+  type: http
+  scheme: Patient portal credentials — FollowMyHealth or AHC (via OAuth 2.0 authorization_code)
+  used_by: human patient users
+
+oauth2_grant_types_supported:
+- authorization_code
+- client_credentials
+- refresh_token
+
+client_types_supported:
+- client-public
+- client-confidential-symmetric
+- client-confidential-asymmetric
+
+app_registration:
+  portal: https://developer.veradigm.com/
+  process: >-
+    Developer registers a FHIR application in the Veradigm Connect portal (My FHIR Applications),
+    selecting an App Type of Patient, Provider, or System — this determines who can license/see
+    the app and whether it may request bulk data (System only). Client organizations then license
+    the registered app before it can connect to their environment (Endpoint Directory /
+    Client License Management Portal).
+  credentials_issued:
+  - Client ID
+  - Secret
+  - Secret Expiration Date
+
+response_types_supported:
+- code
+- token
+- id_token
+- id_token token
+- code id_token
+- code token
+- code id_token token
+
+token_format: JWT bearer token, presented in the Authorization header
+identity_layer: OpenID Connect (sso-openid-connect capability; openid/fhirUser/profile scopes supported)
+
+unity_api_authentication:
+  type: HTTP Basic (username/password)
+  mechanism: Credentials issued by Veradigm during Integrator application registration/certification
+  formats: [REST/JSON, SOAP/XML]
+  source: https://developer.allscripts.com/ (legacy Unity API docs — host now unreachable, see
+    security/allscripts-domain-security.yml)
+  note: >-
+    developer.allscripts.com (the Unity API doc host) timed out on every probe run 2026-08-14; this
+    entry is carried forward from the prior enrichment pass and could not be re-verified this round.
+
+deprecated:
+- name: DSTU2
+  status: unsupported
+  since: '2025-06-01'
+  note: >-
+    Veradigm no longer provides technical support for DSTU2 FHIR applications as of 2025-06-01.
+    The API endpoint is not turned off, but no support or issue resolution is provided. R4 is the
+    current/supported FHIR version.
+
+cross_links:
+  scopes: scopes/allscripts-scopes.yml
+  conformance: conformance/allscripts-conformance.yml
+  lifecycle: lifecycle/allscripts-lifecycle.yml

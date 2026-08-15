@@ -1,8 +1,11 @@
 name: Veradigm Unity API Rate Limits
+method: searched
+generated: "2026-06-13"
+limit_count: 0
 description: The Veradigm Unity API does not publish explicit numerical rate limits in public documentation. Rate limits and throttling policies are defined during the application registration and certification process. Production access requires credentials (username/password) assigned by Veradigm during registration.
 url: https://developer.allscripts.com/
 created: "2026-06-13"
-modified: "2026-06-13"
+modified: "2026-08-14"
 
 notes:
   - Explicit numerical rate limits are not publicly documented

@@ -1,0 +1,98 @@
+generated: '2026-08-14'
+method: searched
+source:
+- https://developer.veradigm.com/Fhir/Searching
+- https://developer.veradigm.com/Fhir/SMARTonFHIR
+- https://developer.veradigm.com/Fhir/BulkData
+- https://developer.veradigm.com/Fhir/ProcessOverview
+- conformance/allscripts-fhir-r4-capabilitystatement.json
+description: >-
+  Cross-cutting API conventions for the Veradigm FHIR R4 API, read from Veradigm's own developer
+  docs plus the live CapabilityStatement/smart-configuration. The Unity API's conventions (SOAP +
+  action-based REST dispatch) could not be re-verified this round because developer.allscripts.com
+  timed out on every probe.
+
+authentication_style:
+  scheme: OAuth 2.0 / SMART on FHIR (authorization_code, client_credentials, refresh_token)
+  see: authentication/allscripts-authentication.yml
+
+idempotency:
+  supported: false
+  evidence: >-
+    No Idempotency-Key header, idempotency scope, or replay-protection mechanism documented
+    anywhere in the FHIR docs found this round.
+
+pagination:
+  style: FHIR Bundle links
+  mechanism: >-
+    Search responses are a Bundle resource carrying `total` and a `link[]` array with
+    self/next/previous relations, per the standard FHIR R4 RESTful search contract.
+  params:
+  - name: _count
+    meaning: page size hint (standard FHIR parameter; not explicitly documented with a numeric
+      default/max by Veradigm)
+  source: https://developer.veradigm.com/Fhir/Searching
+
+field_expansion:
+  supported: unknown
+  note: No _include/_revinclude or sparse-fieldset documentation was found this round beyond
+    standard FHIR search parameters.
+
+search_conventions:
+  date_search:
+    formats: [YYYY, YYYY-MM, YYYY-MM-DD, 'YYYY-MM-DDThh:mm:ss[Z|(+|-)hh:mm]']
+    comparison_operators:
+      eq: equal
+      gt: greater than
+      ge: greater than or equal
+      lt: less than
+      le: less than or equal
+    example: /medicationrequest?date=ge2022-01-01&date=le2022-1-31
+    source: https://developer.veradigm.com/Fhir/Searching
+  common_parameters:
+  - _id
+  - _lastUpdated
+  source: https://developer.veradigm.com/Fhir/Searching
+
+metadata_endpoint:
+  path: /metadata
+  description: Returns the live FHIR CapabilityStatement for the tenant (see conformance/).
+
+request_tracing:
+  header: unknown
+  note: No X-Request-Id / trace-header convention documented this round.
+
+versioning:
+  style: FHIR release version in the API path/CapabilityStatement (R4 current; DSTU2/STU3 legacy)
+  current: R4 (fhirVersion 4.0.1)
+  deprecated: DSTU2 (unsupported since 2025-06-01)
+  see: lifecycle/allscripts-lifecycle.yml
+
+error_envelope:
+  style: FHIR OperationOutcome (not RFC 9457 problem+json)
+  see: errors/allscripts-problem-types.yml
+
+rate_limit_signaling:
+  headers_documented: none
+  note: >-
+    Veradigm does not publish numeric rate limits or standard X-RateLimit-*/Retry-After headers in
+    public FHIR or Unity API docs. See rate-limits/veradigm-fhir-rate-limits.yml and
+    rate-limits/unity-api-rate-limits.yml.
+
+bulk_data:
+  style: HL7 Bulk Data Access (Flat FHIR), asynchronous kick-off/poll/download
+  restricted_to: System app type only
+  auth: JWKS-based backend authentication (private_key_jwt)
+  source: https://developer.veradigm.com/Fhir/BulkData
+
+redacted_data:
+  behavior: >-
+    Records the caller is not authorized to view may still be returned, explicitly marked
+    "redacted", rather than omitted or 403'd — a deliberate patient-safety convention.
+  source: https://developer.veradigm.com/Fhir/Searching
+
+cross_links:
+  errors: errors/allscripts-problem-types.yml
+  lifecycle: lifecycle/allscripts-lifecycle.yml
+  authentication: authentication/allscripts-authentication.yml
+  scopes: scopes/allscripts-scopes.yml

@@ -1,8 +1,10 @@
 name: Veradigm Unity API Plans
+method: searched
+generated: "2026-06-13"
 description: The Unity API is available exclusively to certified Integrator members of the Veradigm Connect developer program (Gold tier and above). Access requires registration, application certification, and approval from Veradigm. The same Veradigm Connect tiers apply for Unity API access as for the FHIR API.
 url: https://developer.veradigm.com/Home/LearnMore
 created: "2026-06-13"
-modified: "2026-06-13"
+modified: "2026-08-14"
 
 notes:
   - Unity API access requires Gold or higher integrator membership

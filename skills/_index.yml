@@ -1,0 +1,12 @@
+generated: '2026-08-14'
+method: generated
+description: Agent Skills for the Veradigm (Allscripts) FHIR R4 API, grounded in the live
+  CapabilityStatement (conformance/allscripts-fhir-r4-capabilitystatement.json). No
+  provider-published skills/AGENTS.md was found (searched developer.veradigm.com and
+  developer.allscripts.com 2026-08-14).
+skills:
+- file: skills/allscripts-fhir-patient-summary.md
+  name: veradigm-fhir-patient-summary
+  api: Veradigm FHIR R4 API
+  summary: Retrieve a patient's core clinical summary (demographics, conditions, medications,
+    allergies, observations) via SMART on FHIR.

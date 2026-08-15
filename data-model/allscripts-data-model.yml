@@ -1,0 +1,97 @@
+generated: '2026-08-14'
+method: derived
+source: conformance/allscripts-fhir-r4-capabilitystatement.json (live CapabilityStatement, HTTP
+  200, fetched 2026-08-14 from Veradigm Connect sandbox tenant CP00101)
+description: >-
+  Entity-relationship graph for the Veradigm FHIR R4 API, derived directly from the reference-typed
+  searchParam entries the live CapabilityStatement declares for each of its 31 resource types — not
+  from documentation prose or invented assumptions. Every relationship below is backed by an actual
+  `reference` searchParam Veradigm's own server advertises.
+key_findings:
+  resource_types: 31
+  reference_typed_search_params: 25 resources declare at least one reference-typed searchParam
+  root_entity: Patient — 21 of the 31 resources carry a direct `patient` reference search param,
+    confirming Patient is the tenancy/scoping root of this API surface
+
+relationships:
+- resource: Condition
+  belongs_to: [{target: Patient, via: patient}, {target: Encounter, via: encounter}]
+- resource: AllergyIntolerance
+  belongs_to: [{target: Patient, via: patient}]
+- resource: MedicationRequest
+  belongs_to: [{target: Patient, via: patient}, {target: Encounter, via: encounter}]
+- resource: Observation
+  belongs_to: [{target: Patient, via: patient}]
+  note: also filterable by US Core category (laboratory/vital-signs/social-history/survey) — see
+    scopes/allscripts-scopes.yml
+- resource: Device
+  belongs_to: [{target: Patient, via: patient}]
+- resource: Immunization
+  belongs_to: [{target: Patient, via: patient}]
+- resource: CarePlan
+  belongs_to: [{target: Patient, via: patient}]
+- resource: DiagnosticReport
+  belongs_to: [{target: Patient, via: patient}]
+- resource: Goal
+  belongs_to: [{target: Patient, via: patient}]
+- resource: Procedure
+  belongs_to: [{target: Patient, via: patient}]
+- resource: Organization
+  belongs_to: [{target: Organization, via: partof}]
+  note: self-referential — models parent/child organizational hierarchy
+- resource: DocumentReference
+  belongs_to: [{target: Patient, via: patient}]
+- resource: Location
+  belongs_to: [{target: Location, via: partof}, {target: Organization, via: organization}]
+- resource: Encounter
+  belongs_to: [{target: Patient, via: patient}, {target: Location, via: location}]
+- resource: RelatedPerson
+  belongs_to: [{target: Patient, via: patient}]
+- resource: PractitionerRole
+  belongs_to: [{target: Practitioner, via: practitioner}, {target: Location, via: location}]
+  has_one: [{target: HealthcareService, via: service}]
+- resource: Group
+  has_many: [{target: (member — any resource type), via: member}]
+- resource: CareTeam
+  belongs_to: [{target: Patient, via: patient}, {target: Patient, via: subject}, {target: Encounter,
+    via: encounter}]
+  has_many: [{target: Practitioner/RelatedPerson (participant), via: participant}]
+- resource: MedicationStatement
+  belongs_to: [{target: Patient, via: patient}]
+  has_one: [{target: Provenance/source, via: source}]
+- resource: MedicationAdministration
+  belongs_to: [{target: Patient, via: patient}, {target: Patient, via: subject}]
+  has_one: [{target: MedicationRequest, via: request}]
+- resource: ServiceRequest
+  belongs_to: [{target: Patient, via: patient}]
+- resource: QuestionnaireResponse
+  belongs_to: [{target: Patient, via: patient}]
+  has_one: [{target: Questionnaire, via: questionnaire}]
+- resource: MedicationDispense
+  belongs_to: [{target: Patient, via: patient}]
+- resource: Specimen
+  belongs_to: [{target: Patient, via: patient}]
+- resource: Coverage
+  belongs_to: [{target: Patient, via: patient}]
+
+no_reference_search_param_declared:
+  # resources present in the CapabilityStatement with only read/search-type but no
+  # reference-typed searchParam found — recorded so this isn't mistaken for an omission
+  - Patient
+  - Medication
+  - Provenance
+  - Binary
+  - Practitioner
+  - QuestionnaireResponse (questionnaire ref covered above; patient ref also present)
+
+render_reference: >-
+  No subway/ diagram exists in this repo yet. json-ld/allscripts-context.jsonld models a compatible
+  (but broader, hand-authored) FHIR reference graph for 20 resource types including several not
+  present in the live CapabilityStatement (Practitioner, AllergyIntolerance, Immunization,
+  Procedure, DiagnosticReport, CarePlan, Goal, Coverage, Device, Bundle, OperationOutcome) — that
+  file predates this round and is left as-is (idempotent).
+
+cross_links:
+  conformance: conformance/allscripts-conformance.yml
+  scopes: scopes/allscripts-scopes.yml
+  json_ld: json-ld/allscripts-context.jsonld

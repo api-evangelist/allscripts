@@ -1,8 +1,11 @@
 name: Veradigm FHIR API Rate Limits
-description: Veradigm does not publish explicit numerical rate limits for the FHIR R4 API in public documentation. Access is gated by OAuth 2.0 token lifecycle and plan tier. Rate limit policies are typically communicated during the integration certification process. Sandbox and production environments may have different constraints.
+method: searched
+generated: "2026-06-13"
+limit_count: 0
+description: Veradigm does not publish explicit numerical rate limits for the FHIR R4 API in public documentation. Access is gated by OAuth 2.0 token lifecycle and plan tier. Rate limit policies are typically communicated during the integration certification process. Sandbox and production environments may have different constraints. The one concrete limit found this round is HTTP 413 (Request too large) returned when a search result set exceeds Veradigm's size limit — see errors/allscripts-problem-types.yml.
 url: https://developer.veradigm.com/Fhir/Introduction
 created: "2026-06-13"
-modified: "2026-06-13"
+modified: "2026-08-14"
 
 notes:
   - Explicit rate limits are not publicly documented

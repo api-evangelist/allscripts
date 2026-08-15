@@ -1,0 +1,49 @@
+generated: '2026-08-14'
+method: searched
+source: https://developer.veradigm.com/Fhir/FHIR_Sandboxes
+description: >-
+  Sandbox/test environments for the Veradigm FHIR R4 API, read from Veradigm's own FHIR Sandboxes
+  documentation page. Two sandbox tenants are published by name; only one responded live when
+  probed on 2026-08-14.
+
+sandboxes:
+- name: TouchWorks FHIR sandbox (R4)
+  base_url: https://tw-fhir-r4.open.allscripts.com/R4/fhir-R4/
+  metadata_url: https://tw-fhir-r4.open.allscripts.com/R4/fhir-R4/metadata
+  reachable_2026_08_14: false
+  probe_result: connection timed out after 20s on every attempt
+- name: TouchWorks FHIR sandbox (open/patient-facing R4)
+  base_url: https://tw-fhir-r4.open.allscripts.com/R4/open-R4/
+  metadata_url: https://tw-fhir-r4.open.allscripts.com/R4/open-R4/metadata
+  reachable_2026_08_14: false
+  probe_result: connection timed out after 20s on every attempt
+- name: FollowMyHealth-style FHIR sandbox tenant CP00101
+  base_url: https://fhir.fhirpoint.open.allscripts.com/fhirroute/fhir/CP00101/
+  metadata_url: https://fhir.fhirpoint.open.allscripts.com/fhirroute/fhir/CP00101/metadata
+  reachable_2026_08_14: true
+  probe_result: HTTP 200, application/json+fhir, live CapabilityStatement
+  smart_configuration_url: https://fhir.fhirpoint.open.allscripts.com/fhirroute/fhir/CP00101/.well-known/smart-configuration
+  tenant_id: CP00101
+  cors: true
+  auth_endpoints:
+    authorize: https://fhir.fhirpoint.open.allscripts.com/fhirroute/authorizationV2/CP00101/connect/authorize
+    token: https://fhir.fhirpoint.open.allscripts.com/fhirroute/authorizationV2/CP00101/connect/token
+
+test_credentials: >-
+  Not published anonymously. Veradigm's docs state that EHR-launch sandbox testing "requires
+  credentials" issued by Veradigm, and standalone testing requires the developer to obtain the
+  client organization's FHIR endpoint details directly (or via the Endpoint Directory) and
+  communicate testing intent to that client before connecting. No fixed test patient IDs, test
+  card numbers, or public sandbox login pairs are published — access is provisioned per developer
+  through the Veradigm Connect portal.
+
+test_vs_live_distinction:
+  mechanism: separate tenant hostnames/endpoints (sandbox tenants above vs. production client
+    endpoints resolved via the Endpoint Directory), not a key-prefix convention.
+  key_prefixes: not applicable — Veradigm does not use a Stripe-style test/live key-prefix scheme
+
+fixture_tooling: none published
+
+cross_links:
+  conformance: conformance/allscripts-conformance.yml
+  authentication: authentication/allscripts-authentication.yml

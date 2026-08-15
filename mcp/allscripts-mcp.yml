@@ -1,0 +1,88 @@
+generated: '2026-08-14'
+method: derived
+status: candidate
+source: conformance/allscripts-fhir-r4-capabilitystatement.json (live CapabilityStatement resource
+  + interaction list)
+description: >-
+  No official/hosted MCP server was found for Veradigm/Allscripts. Probed open.platform.veradigm.com/mcp
+  (404, real 404 page) and developer.veradigm.com/mcp (200, but confirmed soft-404 HTML catch-all,
+  not a real endpoint) on 2026-08-14. The candidate tool list below is DERIVED from the live FHIR
+  CapabilityStatement's declared resource types and interactions (read/search-type/create/update),
+  not fabricated — every tool name maps 1:1 to a resource type Veradigm's own server actually
+  advertises supporting.
+
+deployment:
+  mode: none
+  auth: unknown
+  verified: derived
+  note: >-
+    No provider-hosted MCP server exists (remote or stdio). This is a candidate tool surface an
+    agent-facing MCP wrapper COULD expose over the existing FHIR REST API — nobody ships it today.
+
+candidate_tools:
+- name: read_patient
+  resource: Patient
+  interaction: read
+  scopes: [patient/Patient.read, user/Patient.read, system/Patient.read]
+- name: search_patient
+  resource: Patient
+  interaction: search-type
+  scopes: [patient/Patient.rs, user/Patient.rs, system/Patient.rs]
+- name: search_condition
+  resource: Condition
+  interaction: search-type
+  scopes: [patient/Condition.rs]
+- name: create_condition
+  resource: Condition
+  interaction: create
+- name: update_condition
+  resource: Condition
+  interaction: update
+- name: search_allergyintolerance
+  resource: AllergyIntolerance
+  interaction: search-type
+- name: search_medicationrequest
+  resource: MedicationRequest
+  interaction: search-type
+- name: create_medicationrequest
+  resource: MedicationRequest
+  interaction: create
+- name: search_observation
+  resource: Observation
+  interaction: search-type
+  note: supports category-filtered scopes (laboratory, vital-signs, social-history, survey)
+- name: search_encounter
+  resource: Encounter
+  interaction: search-type
+- name: search_immunization
+  resource: Immunization
+  interaction: search-type
+- name: search_careplan
+  resource: CarePlan
+  interaction: search-type
+- name: search_diagnosticreport
+  resource: DiagnosticReport
+  interaction: search-type
+- name: search_documentreference
+  resource: DocumentReference
+  interaction: search-type
+- name: search_procedure
+  resource: Procedure
+  interaction: search-type
+- name: search_coverage
+  resource: Coverage
+  interaction: search-type
+- name: bulk_export
+  resource: Group / system-level
+  interaction: >-
+    async kickoff via HL7 Bulk Data Access; restricted to System app type with JWKS
+    client_credentials auth
+  source: https://developer.veradigm.com/Fhir/BulkData
+note: >-
+  Full list of 31 supported resource types (each with at least read + search-type) is in
+  conformance/allscripts-fhir-r4-capabilitystatement.json. The list above surfaces the highest-value
+  clinical resources rather than repeating all 31 mechanically.
+
+cross_links:
+  conformance: conformance/allscripts-conformance.yml
+  scopes: scopes/allscripts-scopes.yml

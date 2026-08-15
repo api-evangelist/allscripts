@@ -1,0 +1,145 @@
+generated: '2026-08-14'
+method: probed
+source: >-
+  https://fhir.fhirpoint.open.allscripts.com/fhirroute/fhir/CP00101/metadata (live
+  CapabilityStatement), https://fhir.fhirpoint.open.allscripts.com/fhirroute/fhir/CP00101/.well-known/smart-configuration
+  (live SMART config), https://developer.veradigm.com/Fhir/BulkData,
+  https://developer.veradigm.com/Fhir/Resources, https://developer.veradigm.com/Fhir/ProcessOverview
+description: >-
+  Standards conformance for the Veradigm FHIR R4 API. The strongest evidence here is not
+  documentation prose — it is a live FHIR CapabilityStatement served anonymously by a Veradigm
+  Connect sandbox tenant (CP00101) at
+  https://fhir.fhirpoint.open.allscripts.com/fhirroute/fhir/CP00101/metadata (HTTP 200,
+  application/json+fhir, 59,512 bytes), plus the matching SMART App Launch configuration at the
+  same tenant's /.well-known/smart-configuration (HTTP 200, 9,473 bytes). Both were fetched
+  unauthenticated on 2026-08-14 and are saved verbatim in this repo. `publisher` is literally
+  "Veradigm" and `software.name` is "Veradigm FHIR", confirming the document describes this
+  provider's own server, not a third party. No OpenAPI/Swagger document exists anywhere on the
+  API host or docs host — every openapi.json/swagger.json/redoc probe against
+  open.platform.veradigm.com returned an honest 404, and developer.veradigm.com answers HTTP 200
+  with an HTML shell for every path (a soft-404 ASP.NET catch-all, not a real document) — so this
+  CapabilityStatement is the only machine-readable contract this provider publishes.
+evidence_documents:
+- file: conformance/allscripts-fhir-r4-capabilitystatement.json
+  url: https://fhir.fhirpoint.open.allscripts.com/fhirroute/fhir/CP00101/metadata
+  http_status: 200
+  content_type: application/json+fhir; charset=utf-8
+  fetched: '2026-08-14'
+- file: well-known/allscripts-smart-configuration.json
+  url: https://fhir.fhirpoint.open.allscripts.com/fhirroute/fhir/CP00101/.well-known/smart-configuration
+  http_status: 200
+  content_type: application/json; charset=utf-8
+  fetched: '2026-08-14'
+
+standards:
+- id: fhir
+  name: HL7 FHIR R4
+  conforms: true
+  version: 4.0.1
+  evidence: >-
+    Live CapabilityStatement declares fhirVersion 4.0.1, status active, kind instance,
+    software.name "Veradigm FHIR" version 4.22.0.1 (releaseDate 2026-05-07), name "Veradigm FHIR
+    Server R4 Implementation" (implementation description text version dated 2022-05-01). 31
+    resource types are declared with read and/or search-type interactions (Condition,
+    AllergyIntolerance, MedicationRequest, Observation, Immunization, DocumentReference,
+    MedicationStatement, MedicationAdministration, ServiceRequest, Questionnaire,
+    QuestionnaireResponse, MedicationDispense support create+update as well).
+  source: https://fhir.fhirpoint.open.allscripts.com/fhirroute/fhir/CP00101/metadata
+- id: us-core
+  name: HL7 US Core Implementation Guide
+  conforms: true
+  version: STU3 3.1.1 (text says "Conformant to the HL7 FHIR US Core Implementation Guide STU3
+    Release 3.1.1")
+  evidence: >-
+    CapabilityStatement narrative text explicitly states conformance to US Core STU3 3.1.1.
+    Category-scoped SMART scopes further confirm US Core alignment (Condition
+    us-core-category|sdoh, Observation category|vital-signs, |laboratory, |social-history,
+    |survey).
+  source: https://fhir.fhirpoint.open.allscripts.com/fhirroute/fhir/CP00101/metadata
+- id: smart-app-launch
+  name: HL7 SMART App Launch 2.0
+  conforms: true
+  version: '2.0'
+  evidence: >-
+    CapabilityStatement rest.security declares service coding SMART-on-FHIR with description "The
+    Veradigm FHIR R4 Server supports Smart App Launch for security", plus oauth-uris extension
+    (authorize/token/manage). Live smart-configuration document exposes launch-ehr,
+    launch-standalone, context-ehr-patient, context-ehr-encounter, context-standalone-patient,
+    context-standalone-encounter, sso-openid-connect and permission-v1/v2 capabilities.
+  source: https://developer.veradigm.com/Fhir/SMARTonFHIR
+- id: bulk-data
+  name: HL7 FHIR Bulk Data Access (Flat FHIR)
+  conforms: true
+  evidence: >-
+    CapabilityStatement.instantiates lists
+    http://hl7.org/fhir/uv/bulkdata/CapabilityStatement/bulk-data. Docs describe an asynchronous
+    Group/system-level bulk export restricted to System-type applications with JWKS-based backend
+    authentication, covering 29 resource types (AllergyIntolerance, CarePlan, CareTeam, Condition,
+    Binary, Device, DiagnosticReport, DocumentReference, Encounter, Goal, Group, Immunization,
+    Location, Medication, MedicationAdministration, MedicationRequest, MedicationStatement,
+    Observation, Organization, Patient, Practitioner, PractitionerRole, Procedure, Provenance,
+    RelatedPerson).
+  source: https://developer.veradigm.com/Fhir/BulkData
+- id: oauth2
+  name: OAuth 2.0
+  conforms: true
+  evidence: grant_types_supported [authorization_code, client_credentials, refresh_token];
+    token_endpoint_auth_methods include client_secret_basic, client_secret_post,
+    tls_client_auth, self_signed_tls_client_auth.
+  source: well-known/allscripts-smart-configuration.json
+- id: oidc
+  name: OpenID Connect
+  conforms: true
+  evidence: sso-openid-connect capability, openid/fhirUser/profile scopes advertised, jwks_uri
+    published.
+  source: well-known/allscripts-smart-configuration.json
+- id: hl7-v2
+  name: HL7 v2 messaging
+  conforms: unknown
+  evidence: >-
+    The prior enrichment round's generated GraphQL/JSON-LD artifacts model HL7 interoperability
+    concepts, but no live HL7 v2 interface or documentation page was found this round to confirm.
+- id: soap
+  name: SOAP (Unity API)
+  conforms: true
+  evidence: >-
+    apis.yml documents the Unity API as supporting both SOAP and REST endpoints with an
+    action-based dispatch model. developer.allscripts.com (the Unity docs host) was unreachable on
+    every probe this round (connection timeout), so this entry is carried forward unverified from
+    the existing profile rather than re-confirmed live.
+  source: https://developer.allscripts.com/ (unreachable 2026-08-14 — see
+    security/allscripts-domain-security.yml)
+- id: rfc9457
+  name: RFC 9457 Problem Details
+  conforms: false
+  evidence: >-
+    Searching docs describe plain numeric HTTP status codes (401/403/404/413) with no
+    application/problem+json envelope documented. FHIR's own OperationOutcome resource is the
+    error format actually used, not RFC 9457. See errors/allscripts-problem-types.yml.
+- id: pagination
+  name: FHIR Bundle-based pagination
+  conforms: true
+  evidence: >-
+    Standard FHIR search returns a Bundle resource with `link` relations (self/next/previous) per
+    the FHIR R4 RESTful API — confirmed by the Bundle context modeled in
+    json-ld/allscripts-context.jsonld and standard FHIR search semantics documented at
+    developer.veradigm.com/Fhir/Searching.
+- id: idempotency
+  name: Idempotency-Key support
+  conforms: false
+  evidence: >-
+    No Idempotency-Key header or equivalent replay-protection mechanism is documented anywhere in
+    the FHIR or Unity API docs found this round.
+- id: fapi
+  name: Financial-grade API (FAPI) security profile
+  conforms: false
+  evidence: >-
+    No FAPI conformance claim found. The auth profile (OAuth2 + OIDC + client_credentials with
+    optional mTLS/self-signed TLS client auth) shares building blocks with FAPI but is not asserted
+    as FAPI-conformant anywhere in Veradigm's own docs.
+
+cross_links:
+  scopes: scopes/allscripts-scopes.yml
+  authentication: authentication/allscripts-authentication.yml
+  errors: errors/allscripts-problem-types.yml
+  data_model: data-model/allscripts-data-model.yml

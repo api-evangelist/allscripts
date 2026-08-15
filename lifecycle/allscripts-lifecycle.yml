@@ -1,0 +1,58 @@
+generated: '2026-08-14'
+method: searched
+source:
+- https://developer.veradigm.com/Fhir/ProcessOverview
+- https://developer.veradigm.com/Fhir/Resources
+- https://status.veradigm.com/ (probed — different product line, see note below)
+description: >-
+  Version and deprecation lifecycle for the Veradigm FHIR R4 API, read from Veradigm's own
+  developer docs.
+
+versioning:
+  scheme: FHIR release version (DSTU2 -> STU3 -> R4)
+  current: R4
+  note: Docs also tie FHIR resource availability to the underlying Veradigm/Allscripts EHR
+    software version — "Veradigm EHR version 26.0 supports these FHIR resources. For versions
+    earlier than 26.0, consult the Capability Statement."
+  source: https://developer.veradigm.com/Fhir/Resources
+
+deprecation_policy:
+  sunset_header: not documented
+  rfc8594_support: "unknown — no Sunset/Deprecation HTTP header documented"
+  policies:
+  - api_version: DSTU2
+    status: deprecated
+    effective_date: '2025-06-01'
+    detail: >-
+      "As of 6/1/2025, Veradigm no longer provides support for DSTU2 as it approaches
+      deprecation. The API is not turned off, but there is no longer technical support or
+      resolution provided for any issues that arise."
+    source: https://developer.veradigm.com/Fhir/ProcessOverview
+
+sla: not publicly documented
+
+status_page:
+  found: true
+  url: https://status.veradigm.com/
+  title: "Veradigm Health Plans & Payers Status"
+  applies_to_this_profile: false
+  reason: >-
+    This is a real, live Atlassian Statuspage.io page (HTTP 200, 282,389 bytes) but its tracked
+    components are Analytics & Reporting, Comprehensive Submissions, eChart Coder, eChart Courier,
+    eChart Integration and Analytics, Risk Adjustment Analytics, Veradigm Collaborate, and Veradigm
+    Payer Insights — the Veradigm Payer/health-plan analytics product line, not the FHIR R4 or
+    Unity Developer Program APIs profiled in this repo. No StatusPage pointer is added to apis.yml
+    because crediting it here would misattribute uptime tracking for a different product to this
+    developer surface.
+
+app_certification_lifecycle:
+  process: >-
+    Developer registers a FHIR application (Patient/Provider/System type) in the Veradigm Connect
+    portal, receives OAuth/FHIR credentials, then a client organization must separately license the
+    app via the License Management Portal / Endpoint Directory before it can connect to that
+    client's live environment.
+  source: https://developer.veradigm.com/Fhir/ProcessOverview
+
+cross_links:
+  conventions: conventions/allscripts-conventions.yml
+  authentication: authentication/allscripts-authentication.yml

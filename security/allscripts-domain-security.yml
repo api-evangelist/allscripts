@@ -1,4 +1,4 @@
-generated: '2026-07-11'
+generated: '2026-08-14'
 method: probed
 source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
 hosts:
@@ -11,7 +11,7 @@ hosts:
 - host: open.platform.veradigm.com
   https: true
   tls_version: TLSv1.3
-  cert_expires: Jul 21 17:05:14 2026 GMT
+  cert_expires: Jan 30 16:37:15 2027 GMT
   hsts: null
 - host: developer.allscripts.com
   https: false
