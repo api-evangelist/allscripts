@@ -5,6 +5,7 @@ description: Allscripts, now operating as Veradigm, is a healthcare IT company p
   Developer Program) offers FHIR R4 APIs covering 28 clinical resources as well as
   a Unity API for clinical, scheduling, demographic, and practice management functions
   across Allscripts EHR products.
+specificationVersion: '0.23'
 accessModel:
   pricing: freemium
   onboarding: unknown
