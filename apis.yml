@@ -170,8 +170,9 @@ common:
   url: well-known/allscripts-well-known.yml
 - type: Packages
   url: packages/allscripts-packages.yml
-- type: MCPServer
+- type: X-MCPServerCandidate
   url: mcp/allscripts-mcp.yml
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
 - type: LLMsTxt
   url: llms/allscripts-llms.txt
 - type: ErrorCatalog
