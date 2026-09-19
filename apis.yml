@@ -138,6 +138,13 @@ apis:
   - Acute Care
   - EHR
   - Paragon
+  - Hospitals
+  - Healthcare
+  tags_raw:
+  - FHIR
+  - Acute Care
+  - EHR
+  - Paragon
   - Hospital
   - Healthcare
   properties:
