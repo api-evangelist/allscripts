@@ -1,4 +1,4 @@
-name: Allscripts
+name: Veradigm (Allscripts)
 description: Allscripts, now operating as Veradigm, is a healthcare IT company providing
   REST and FHIR APIs for EHR data exchange, clinical workflows, patient portal, and
   practice management integrations. The Veradigm Developer Program (formerly Allscripts
@@ -30,7 +30,7 @@ accessModel:
   generated: '2026-07-22'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/allscripts.png
-url: https://raw.githubusercontent.com/api-evangelist/allscripts/refs/heads/main/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/veradigm/refs/heads/main/apis.yml
 version: '0.19'
 created: '2026-06-13'
 modified: '2026-08-14'
@@ -79,13 +79,11 @@ apis:
   - type: Resources
     url: https://developer.veradigm.com/Fhir/Resources
   - type: Plans
-    url: https://raw.githubusercontent.com/api-evangelist/allscripts/refs/heads/main/plans/veradigm-fhir-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/veradigm/refs/heads/main/plans/veradigm-fhir-plans.yml
   - type: RateLimits
-    url: https://raw.githubusercontent.com/api-evangelist/allscripts/refs/heads/main/rate-limits/veradigm-fhir-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/veradigm/refs/heads/main/rate-limits/veradigm-fhir-rate-limits.yml
   - type: TermsOfService
     url: https://developer.veradigm.com/Content/fhir/Allscripts_FHIR_API_License_2017.2.pdf
-  - url: graphql/allscripts-graphql.md
-    type: GraphQL
   contact:
   - FN: Veradigm Connect Support
     email: VeradigmConnect@veradigm.com
@@ -114,9 +112,9 @@ apis:
   - type: GettingStarted
     url: https://developer.allscripts.com/Home/LearnMore
   - type: Plans
-    url: https://raw.githubusercontent.com/api-evangelist/allscripts/refs/heads/main/plans/unity-api-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/veradigm/refs/heads/main/plans/unity-api-plans.yml
   - type: RateLimits
-    url: https://raw.githubusercontent.com/api-evangelist/allscripts/refs/heads/main/rate-limits/unity-api-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/veradigm/refs/heads/main/rate-limits/unity-api-rate-limits.yml
   - type: TermsOfService
     url: https://veradigm.com/img/legal/pm/Unity-API-EULA.pdf
   - type: AppExpo
@@ -153,9 +151,9 @@ apis:
   - type: EndpointDirectory
     url: https://developer.veradigm.com/Fhir/EndpointDirectory
   - type: Plans
-    url: https://raw.githubusercontent.com/api-evangelist/allscripts/refs/heads/main/plans/veradigm-fhir-plans.yml
+    url: https://raw.githubusercontent.com/api-evangelist/veradigm/refs/heads/main/plans/veradigm-fhir-plans.yml
   - type: RateLimits
-    url: https://raw.githubusercontent.com/api-evangelist/allscripts/refs/heads/main/rate-limits/veradigm-fhir-rate-limits.yml
+    url: https://raw.githubusercontent.com/api-evangelist/veradigm/refs/heads/main/rate-limits/veradigm-fhir-rate-limits.yml
   - type: TermsOfService
     url: https://developer.veradigm.com/Content/fhir/Allscripts_FHIR_API_License_2017.2.pdf
   contact:
@@ -163,6 +161,8 @@ apis:
     email: VeradigmConnect@veradigm.com
     url: https://developer.veradigm.com/
 common:
+- type: Website
+  url: https://veradigm.com/
 - type: DomainSecurity
   url: security/allscripts-domain-security.yml
 - type: Authentication
@@ -223,7 +223,7 @@ common:
 - type: APIWorkshop
   url: https://lp.veradigm.com/api-workshop-registration-april
 - type: FinOps
-  url: https://raw.githubusercontent.com/api-evangelist/allscripts/refs/heads/main/finops/allscripts-finops.yml
+  url: https://raw.githubusercontent.com/api-evangelist/veradigm/refs/heads/main/finops/allscripts-finops.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -233,3 +233,4 @@ x-enrichment:
   status: enriched
   artifacts_added: 16
   pass: local-v1
+x-former-name: Allscripts Healthcare Solutions, Inc.
